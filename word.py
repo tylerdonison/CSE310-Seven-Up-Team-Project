@@ -1,10 +1,11 @@
 import random
+from problem import Problem
 #programming overseen by Jake
 #data for difficulties overseen by Cheryl
 
 #class for handling word module, will include difficultly, problems, etc.
 
-class Word():
+class Word(Problem):
   
   __init__(difficulty):
     word = ""
