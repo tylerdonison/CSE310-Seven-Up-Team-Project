@@ -2,5 +2,5 @@
 
 class Problem():
   
-  __init__():
+  def __init__():
     pass
