@@ -16,7 +16,7 @@ class Asteroid():
         image_2 = pygame.image.load(ASSET_PATH.join("name of picture file 2"))
         image_3 = pygame.image.load(ASSET_PATH.join("name of picture file 3"))
         self.images =[image_1, image_2, image_3]
-        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (asteroid.x, asteroid.y))
+        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (Asteroid.x, Asteroid.y))
         self.size = (100, 100)
         self.rotation = 0
         self.y = 0
