@@ -11,7 +11,7 @@
 # Development Environment
 
 * Python 3.9
-* Arcade/Pygame #.##
+* Pygame 2.12
 
 # Collaborators
 
