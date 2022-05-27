@@ -3,13 +3,13 @@ import os
 pygame.font.init()
 pygame.mixer.init()
 
-//This is a file that contains default values that can be called repeatedly.
-//This file will also allow for easy testing of speeds, etc.
+#This is a file that contains default values that can be called repeatedly.
+#This file will also allow for easy testing of speeds, etc.
 
 WIDTH = 900
 HEIGHT = 500
 
-##Colors, maybe we need to agree on a theme.
+#Colors, maybe we need to agree on a theme.
 #         RED   GREEN BLUE
 WHITE =  (255,  255,  255)
 BLACK =  (0,    0,    0)
