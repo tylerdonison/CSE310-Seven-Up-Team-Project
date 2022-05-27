@@ -2,7 +2,7 @@
 
 class Cannon():
   
-  __init__():
+  def __init__():
     pass
   
   #shooting logic
