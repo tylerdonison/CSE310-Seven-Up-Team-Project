@@ -7,15 +7,52 @@ from problem import Problem
 
 class Word(Problem):
   
-  __init__(difficulty):
-    word = ""
-    difficulty = ""
-    word_list = generate_word_list(difficulty)
+  def __init__(self, nouns, verbs, prepositions, articles):
+    self._noun = ""
+    self._verb = ""
+    self._object = ""
+    self._preposition = ""
+    self._article = ""
+    self._nouns = nouns
+    self._verbs = verbs
+    self._prepositions = prepositions
+    self._articles = articles
+
+  def setup_sentence(self):
+    self._select_words()
+    self._create_problem()
     
-    generate_word_list(difficulty):
-      word_list = []
-      
-      return word_list
-    
-    #generate_sentence(nouns, verbs, subjects):
-    
+
+  def _select_words(self):
+    """randomly selects sentance parts"""
+    self._noun = random.choice(self._nouns)
+    self._verb = random.choice(self._verbs)
+    self._object = random.choice(self._nouns)
+    self._preposition = random.choice(self._prepositions)
+    self._article = random.choice(self._articles)
+
+  def _create_problem(self):
+    self.problem = (f"{self._preposition} {self._article} {self._noun} {self._verb} {self._object}.")
+    self._solution = self.problem
+  
+  def check_solution(self, answer):
+    return self._solution == answer
+  
+while(True):      
+  nouns = ["boy", "girl", "dog", "apple", "horse"]
+  verbs = ["ran", "fought", "jumped"]
+  prepositions = ["about", "above", "across", "after", "along",
+          "around", "at", "before", "behind", "below",
+          "beyond", "by", "despite", "except", "for",
+          "from", "in", "into", "near", "of",
+          "off", "on", "onto", "out", "over",
+          "past", "to", "under", "with", "without"]
+
+  articles = ["a", "the"]
+
+  word = Word(nouns, verbs, prepositions, articles)
+
+  word.setup_sentence()
+  print(word.problem)
+  solution = input("> ")
+  print(word.check_solution(solution))

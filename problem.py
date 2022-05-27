@@ -2,5 +2,6 @@
 
 class Problem():
   
-  __init__():
-    pass
+  def __init__(self):
+    self.problem = ""
+    self._solution = ""
