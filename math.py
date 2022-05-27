@@ -12,7 +12,7 @@ class Math(Problem):
     operator = ""
     solution = 0
     
-    set_var():
+  def set_var():
       pass
     
     #logic for subtraction and division
