@@ -3,7 +3,7 @@
 
 class User():
   
-  __init__():
+  def __init__():
     pass
   #display typed text
   #controls
