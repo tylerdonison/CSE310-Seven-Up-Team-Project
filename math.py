@@ -6,7 +6,7 @@ from problem import Problem
 
 class Math(Problem):
   
-  __init__():
+  def __init__():
     var 1 = 0
     var 2 = 0
     operator = ""
