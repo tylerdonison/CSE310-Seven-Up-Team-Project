@@ -7,7 +7,7 @@ from words import Words
 
 class Asteroid():
   
-  __init__():
+  def __init__():
     pass
   
   #display
