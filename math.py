@@ -1,9 +1,10 @@
+from problem import Problem
 #programming overseen by Jake
 #data for difficulties overseen by Cheryl
 
 #class for handling math module, will include difficultly, problems, etcs.
 
-class Math():
+class Math(Problem):
   
   __init__():
     var 1 = 0
