@@ -7,12 +7,12 @@ from problem import Problem
 
 class Word(Problem):
   
-  __init__(difficulty):
+  def __init__(difficulty):
     word = ""
     difficulty = ""
     word_list = generate_word_list(difficulty)
     
-    generate_word_list(difficulty):
+  def generate_word_list(difficulty):
       word_list = []
       
       return word_list
