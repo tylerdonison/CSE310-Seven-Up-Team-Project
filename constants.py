@@ -25,7 +25,8 @@ MAIN_FONT = pygame.font.SysFont('comicsans', 100) #can change, just showing that
 
 FPS = 60
 ASTEROID_VEL = 5
-BULLET_ VEL = 7
+BORDER_DISTANCE = 10 #to spawn asteroids in the borders of the game
+LETTER_SIZE = 5 #for use in asteroids
 
 ASTEROID_HIT = pygame.USEREVENT + 1 #for collision between bullet and successful type?
 CANNON_HIT = pygame.USEREVENT + 2   #for collision between asteriod and cannon
