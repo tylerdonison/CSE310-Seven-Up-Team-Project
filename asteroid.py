@@ -41,3 +41,5 @@ class Asteroid():
     
     def handle_movement(self):
         self.x += ASTEROID_VEL
+    
+    #handle collision with player
