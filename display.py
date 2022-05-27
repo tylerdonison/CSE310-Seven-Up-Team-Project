@@ -11,7 +11,7 @@ class Display():
   //class to handle game display.
   
   
-  __init__():
+  def __init__():
     pass
   
   draw_window():
