@@ -1,6 +1,6 @@
 //main file to direct user to the menu, game loop, etc.
 
-main():
+def main():
   #go to menu
   pass
 
