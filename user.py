@@ -3,12 +3,21 @@
 
 class User():
   
-  def __init__():
+  def __init__(self):
     pass
-  #display typed text
-  #controls
-  #sounds
-  #cannon class
+
+  def typed_text(self):
+    pass
+
+  def controls(self):
+    pass
+    
+  def display_typed_text(self):
+    pass
+  def controls(self):
+    pass
+  def sounds(self):
+    pass
   
   #handle if word or solution is right, delete asteroid if true, maybe have indicator for failed word/solution
   

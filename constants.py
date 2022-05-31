@@ -9,6 +9,8 @@ pygame.mixer.init()
 WIDTH = 900
 HEIGHT = 500
 
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+
 #Colors, maybe we need to agree on a theme.
 #         RED   GREEN BLUE
 WHITE =  (255,  255,  255)
