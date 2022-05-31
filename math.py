@@ -6,13 +6,13 @@ from problem import Problem
 
 class Math(Problem):
   
-  def __init__():
-    var 1 = 0
-    var 2 = 0
-    operator = ""
-    solution = 0
+  def __init__(self):
+    self.var_1 = 0
+    self.var_2 = 0
+    self.operator = ""
+    self.solution = 0
     
-  def set_var():
+  def set_var(self):
       pass
     
     #logic for subtraction and division

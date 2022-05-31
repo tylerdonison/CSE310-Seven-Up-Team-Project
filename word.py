@@ -7,15 +7,16 @@ from problem import Problem
 
 class Word(Problem):
   
-  def __init__(difficulty):
-    word = ""
-    difficulty = ""
-    word_list = generate_word_list(difficulty)
+  def __init__(self, difficulty):
+    self.word = ""
+    self.difficulty = ""
+    self.word_list = self._generate_word_list(difficulty)
     
-  def generate_word_list(difficulty):
-      word_list = []
-      
-      return word_list
+  def _generate_word_list(self, difficulty):
+    word_list = []
     
-    #generate_sentence(nouns, verbs, subjects):
+    return word_list
+    
+  def _generate_sentence(self, nouns, verbs, subjects):
+    pass
     
