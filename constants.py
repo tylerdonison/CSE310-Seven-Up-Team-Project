@@ -1,5 +1,6 @@
 import pygame
 import os
+
 pygame.font.init()
 pygame.mixer.init()
 
@@ -8,6 +9,8 @@ pygame.mixer.init()
 
 WIDTH = 900
 HEIGHT = 500
+
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 #Colors, maybe we need to agree on a theme.
 #         RED   GREEN BLUE
@@ -21,7 +24,7 @@ TEAL =   (0,    255,  255)
 PURPLE = (255,  0,    255)
 BROWN =  (255,  255,  0)
 
-MAIN_FONT = pygame.font.SysFont('comicsans', 100) #can change, just showing that fonts can be made via this, first variable is the system's font, second is the size
+MAIN_FONT = pygame.font.SysFont("comicsans", 100) #can change, just showing that fonts can be made via this, first variable is the system's font, second is the size
 
 FPS = 60
 ASTEROID_VEL = 5
