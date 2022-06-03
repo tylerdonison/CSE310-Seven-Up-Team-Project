@@ -10,7 +10,7 @@
 
 # Development Environment
 
-* Python 3.9
+* Python 3.9 and 3.10
 * Pygame 2.12
 
 # Collaborators
