@@ -46,6 +46,6 @@ class Asteroid():
     
     #handle collision with player
     def handle_collision(self):
-        if self.user.typed_text() == self.problem.solution:
+        if self.problem.check_solution(self.user.typed_text()):
             del self
 
