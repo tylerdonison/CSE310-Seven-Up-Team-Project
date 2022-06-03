@@ -7,7 +7,7 @@ from problem import Problem
 
 class Word(Problem):
   
-  def __init__(self, nouns, verbs, prepositions, articles):
+  def __init__(self, words=[], nouns=[], verbs=[], prepositions=[], articles=[]):
     self._noun = ""
     self._verb = ""
     self._object = ""
@@ -18,6 +18,9 @@ class Word(Problem):
     self._prepositions = prepositions
     self._articles = articles
 
+    self._words = words
+    self._word = ""
+
   def setup_sentence(self):
     self._select_words()
     self._create_problem()
@@ -25,19 +28,30 @@ class Word(Problem):
 
   def _select_words(self):
     """randomly selects sentance parts"""
-    self._noun = random.choice(self._nouns)
-    self._verb = random.choice(self._verbs)
-    self._object = random.choice(self._nouns)
-    self._preposition = random.choice(self._prepositions)
-    self._article = random.choice(self._articles)
+
+    if len(self._words) == 0:
+      self._noun = random.choice(self._nouns)
+      self._verb = random.choice(self._verbs)
+      self._object = random.choice(self._nouns)
+      self._preposition = random.choice(self._prepositions)
+      self._article = random.choice(self._articles)
+    
+    else:
+      self._word = random.choice(self._words)
 
   def _create_problem(self):
-    self.problem = (f"{self._preposition} {self._article} {self._noun} {self._verb} {self._object}.")
+    if len(self._words) == 0:
+      self.problem = (f"{self._preposition} {self._article} {self._noun} {self._verb} {self._object}.")
+    
+    else:
+      self.problem = self._word
+    
     self._solution = self.problem
   
-  def check_solution(self, answer):
-    return self._solution == answer
+
   
+
+''' 
 while(True):      
   nouns = ["boy", "girl", "dog", "apple", "horse"]
   verbs = ["ran", "fought", "jumped"]
@@ -56,3 +70,4 @@ while(True):
   print(word.problem)
   solution = input("> ")
   print(word.check_solution(solution))
+  '''
