@@ -1,14 +1,20 @@
-import pygame
 import os
+import pygame
+
+DEFAULT_PATH = os.path
+ASSET_PATH = os.path.join("Assets")
+
+LETTER_SIZE = 5
+ASTEROID_VEL = 5
+BORDER_DISTANCE = 10
+WIDTH = 900
+HEIGHT = 500
 
 pygame.font.init()
 pygame.mixer.init()
 
 #This is a file that contains default values that can be called repeatedly.
 #This file will also allow for easy testing of speeds, etc.
-
-WIDTH = 900
-HEIGHT = 500
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -35,3 +41,4 @@ ASTEROID_HIT = pygame.USEREVENT + 1 #for collision between bullet and successful
 CANNON_HIT = pygame.USEREVENT + 2   #for collision between asteriod and cannon
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
+
