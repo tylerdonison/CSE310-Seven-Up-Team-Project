@@ -42,3 +42,6 @@ CANNON_HIT = pygame.USEREVENT + 2   #for collision between asteriod and cannon
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
 
+SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
+
+TIMER_COUNT = 0
