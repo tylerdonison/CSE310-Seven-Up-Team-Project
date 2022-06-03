@@ -1,8 +1,8 @@
 from constants import *
 import pygame
 
-class Cannon():
-  """Class to handle the cannon object. The cannon will react to the userclass's controls. 
+class Space_Station():
+  """Class to handle the space station object. The cannon will react to the userclass's controls. 
   This class will handle the visuals and the bullet objects.
   """
   
