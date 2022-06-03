@@ -1,6 +1,8 @@
-from constants import *
-import pygame
 import random
+from mathematics import Mathematics
+from word import Word
+from user import User
+from constants import *
 
 class Asteroid():
 
@@ -15,6 +17,7 @@ class Asteroid():
         self.y = 0
         self.x = 0
         self.problem = problem
+        self.user = User()
 
     def randomize(self, randomize_size=False):
         if randomize_size:
@@ -34,3 +37,9 @@ class Asteroid():
     
     def handle_movement(self):
         self.x += ASTEROID_VEL
+    
+    def handle_collision(self):
+        if self.problem.check_solution(self.user.typed_text()):
+            del self
+    
+        
