@@ -1,10 +1,3 @@
-#Currently overseen by Tyler
-#Class to oversee the behavior of asteroids
-#Typing solutions to be done elsewhere.
-
-from math import Math
-from words import Words
-
 from constants import *
 import pygame
 import random
@@ -16,7 +9,7 @@ class Asteroid():
         image_2 = pygame.image.load(ASSET_PATH.join("name of picture file 2"))
         image_3 = pygame.image.load(ASSET_PATH.join("name of picture file 3"))
         self.images =[image_1, image_2, image_3]
-        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (Asteroid.x, Asteroid.y))
+        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (asteroid.x, asteroid.y))
         self.size = (100, 100)
         self.rotation = 0
         self.y = 0
@@ -41,5 +34,3 @@ class Asteroid():
     
     def handle_movement(self):
         self.x += ASTEROID_VEL
-    
-    #handle collision with player
