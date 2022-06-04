@@ -1,14 +1,8 @@
-#Currently overseen by Tyler
-#Class to oversee the behavior of asteroids
-#Typing solutions to be done elsewhere.
-
-from mathematics import Mathematics
-from word import Word
-from user import User
-
-from constants import *
-import pygame
 import random
+from mathematics import Mathematics
+from words import Word
+from user import User
+from constants import *
 
 class Asteroid():
 
@@ -17,7 +11,7 @@ class Asteroid():
         image_2 = pygame.image.load(ASSET_PATH.join("name of picture file 2"))
         image_3 = pygame.image.load(ASSET_PATH.join("name of picture file 3"))
         self.images =[image_1, image_2, image_3]
-        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (Asteroid.x, Asteroid.y))
+        self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (asteroid.x, asteroid.y))
         self.size = (100, 100)
         self.rotation = 0
         self.y = 0
@@ -44,8 +38,8 @@ class Asteroid():
     def handle_movement(self):
         self.x += ASTEROID_VEL
     
-    #handle collision with player
     def handle_collision(self):
         if self.problem.check_solution(self.user.typed_text()):
             del self
-
+    
+        
