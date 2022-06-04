@@ -1,6 +1,6 @@
 import random
 from mathematics import Mathematics
-from word import Word
+from words import Word
 from user import User
 from constants import *
 
