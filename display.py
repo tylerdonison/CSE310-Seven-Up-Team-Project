@@ -42,7 +42,7 @@ class Display():
     #draw background
   SPACE = pygame.transform.scale(pygame.image.load(
       os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
-      "Assets", "Pictures", "Backgrounds", "space.PNG")), 
+      "Assets", "Pictures", "Backgrounds", "Background.png")), 
       (WIDTH, HEIGHT))
   WIN.blit(SPACE, (0,0))
 

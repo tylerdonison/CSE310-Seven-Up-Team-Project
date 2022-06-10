@@ -39,7 +39,7 @@ class User():
 
 
   def sounds(self):
-    missile_sound = pygame.mixer.Sound(os.path.join('sounds','Shoot_01.wav'))
+    missile_sound = pygame.mixer.Sound(os.path.join(ASSET_PATH, 'Sounds','Shoot_01.wav'))
     missile_sound.set_volume(1)
 
   

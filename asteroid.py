@@ -7,9 +7,9 @@ from constants import *
 class Asteroid():
 
     def __init__(self):#, problem):
-        image_1 = pygame.image.load(os.path.join("Assets", "Pictures", "Space-Station", "Space Station.png"))
-        image_2 = pygame.image.load(os.path.join("Assets", "Pictures", "Space-Station", "Space Station.png"))
-        image_3 = pygame.image.load(os.path.join("Assets", "Pictures", "Space-Station", "Space Station.png"))
+        image_1 = pygame.image.load(os.path.join("Assets", "Pictures", "Asteroids", "Asteroid_1.png"))
+        image_2 = pygame.image.load(os.path.join("Assets", "Pictures", "Space-Station", "Asteroid_2.png"))
+        image_3 = pygame.image.load(os.path.join("Assets", "Pictures", "Space-Station", "Asteroid_3.png"))
         self.images =[image_1, image_2, image_3]
         self.used_image = "" #This allows a pygame call of WIN.blit(Asteroid.usedimage, (asteroid.x, asteroid.y))
         self.size = (100, 100)

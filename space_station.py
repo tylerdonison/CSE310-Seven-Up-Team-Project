@@ -1,4 +1,5 @@
 from constants import *
+import os
 import pygame
 
 class Space_Station():
@@ -15,7 +16,7 @@ class Space_Station():
       pass
 
   def __init__(self):
-    self.image = pygame.image.load(str.join(ASSET_PATH, "/Pictures/Cannon/Turret01.png"))
+    self.image = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Cannon", "Turret01.png"))
     pass
   
 
