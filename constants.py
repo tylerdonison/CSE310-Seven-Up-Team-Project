@@ -1,5 +1,7 @@
 import os
 import pygame
+pygame.font.init()
+pygame.mixer.init()
 
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
@@ -45,3 +47,4 @@ ASSET_PATH = os.path.join("Assets")
 SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
 
 TIMER_COUNT = 0
+ROCK_FONT = pygame.font.SysFont('comicsans', 40)
