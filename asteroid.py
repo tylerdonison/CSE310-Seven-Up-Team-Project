@@ -16,7 +16,8 @@ class Asteroid():
         self.rotation = 0
         self.y = -200
         self.x = 0
-        #self.problem = problem
+        self.center = (0,0)
+        self.problem = problem
         #self.user = User()
 
     def randomize(self, randomize_size=False):
@@ -43,6 +44,7 @@ class Asteroid():
         else:
             self.rotation = 0
         self.used_image = pygame.transform.rotate(pygame.transform.scale(self.images[random.randint(0,2)], self.size), self.rotation)
+        self.center = (self.size[0]/2+self.x, self.size[1]/2+self.y)
     
     def handle_collision(self):
         if self.problem.check_solution(self.user.typed_text()):
