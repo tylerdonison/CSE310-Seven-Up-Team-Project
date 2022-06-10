@@ -16,7 +16,7 @@ class Asteroid():
         self.rotation = 0
         self.y = -200
         self.x = 0
-        self.center = (0,0)
+        self.center = (-200,-200)
         self.problem = problem
         #self.user = User()
 
