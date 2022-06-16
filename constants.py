@@ -1,7 +1,11 @@
 import os
 import pygame
+
+pygame.init()
 pygame.font.init()
 pygame.mixer.init()
+
+MUSIC = pygame.mixer.music
 
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
@@ -11,9 +15,6 @@ ASTEROID_VEL = 5
 BORDER_DISTANCE = 10
 WIDTH = 900
 HEIGHT = 500
-
-pygame.font.init()
-pygame.mixer.init()
 
 #This is a file that contains default values that can be called repeatedly.
 #This file will also allow for easy testing of speeds, etc.
@@ -42,7 +43,7 @@ LETTER_SIZE = 5 #for use in asteroids
 ASTEROID_HIT = pygame.USEREVENT + 1 #for collision between bullet and successful type?
 CANNON_HIT = pygame.USEREVENT + 2   #for collision between asteriod and cannon
 DEFAULT_PATH = os.path
-ASSET_PATH = os.path.join("Assets")
+ASSET_PATH = DEFAULT_PATH.join("Assets")
 
 SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
 

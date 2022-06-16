@@ -1,10 +1,18 @@
 # Button Class for the Main Menu
 # Thanks to https://github.com/baraltech/Menu-System-PyGame
 
-
+import os
+import pygame
+from constants import ASSET_PATH, MUSIC
 class Button():
+	select_button_sound = os.path.join(ASSET_PATH, "Sounds", "Menu_Navigate_03.wav")
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+		# Scale the image to the appropriate size to accomodate font size
 		self.image = image
+		try:
+			self.image = pygame.transform.scale(image, (350, 75))
+		except TypeError:
+			pass
 		self.x_pos = pos[0]
 		self.y_pos = pos[1]
 		self.font = font
@@ -15,6 +23,7 @@ class Button():
 			self.image = self.text
 		self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
 		self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
+		self.played_sound = False
 
 	def update(self, screen):
 		if self.image is not None:
@@ -29,5 +38,10 @@ class Button():
 	def changeColor(self, position):
 		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
 			self.text = self.font.render(self.text_input, True, self.hovering_color)
+			if not self.played_sound:
+				MUSIC.load(Button.select_button_sound)
+				MUSIC.play()
+				self.played_sound = True
 		else:
 			self.text = self.font.render(self.text_input, True, self.base_color)
+			self.played_sound = False
