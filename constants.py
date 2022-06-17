@@ -1,3 +1,6 @@
+#This is a file that contains default values that can be called repeatedly.
+#This file will also allow for easy testing of speeds, etc.
+
 import os
 import pygame
 
@@ -15,9 +18,6 @@ ASTEROID_VEL = 5
 BORDER_DISTANCE = 10
 WIDTH = 900
 HEIGHT = 500
-
-#This is a file that contains default values that can be called repeatedly.
-#This file will also allow for easy testing of speeds, etc.
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
