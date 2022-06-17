@@ -1,10 +1,12 @@
 # Overview
 
-{Important!  Do not say in this section that this is college assignment.}
+This software is a game to test your typing precision! Type the words or solve the math problems correctly to shoot down the meteors before they destory your home base!
 
-{Provide a description of your team project.  Describe how to use the software.}
-
-{If this is an online class, then provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running and a walkthrough of the code.}
+How to play:
+Type the given words or the solution, then hit enter.
+If your answer is right, you destroy the meteor!
+If it is wrong, you'll have to try again.
+If the meteors hit your base too many times, you lose!
 
 [Software Demo Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
@@ -23,13 +25,10 @@
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [Pygame](https://www.pygame.org/docs/)
-* [Web Site Name](http://url.link.goes.here)
+* [GeekforGeeks](https://www.geeksforgeeks.org/)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Implement Difficulty
+* Implement Levels
