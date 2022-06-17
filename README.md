@@ -3,6 +3,7 @@
 This software is a game to test your typing precision! Type the words or solve the math problems correctly to shoot down the meteors before they destory your home base!
 
 How to play:
+
 Type the given words or the solution, then hit enter.
 If your answer is right, you destroy the meteor!
 If it is wrong, you'll have to try again.
