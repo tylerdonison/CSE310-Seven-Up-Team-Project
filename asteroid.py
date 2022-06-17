@@ -6,7 +6,7 @@ from constants import *
 
 class Asteroid():
 
-    def __init__(self):#, problem):
+    def __init__(self, problem):
         image_1 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_1.png"))
         image_2 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_2.png"))
         image_3 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_3.png"))
