@@ -1,41 +1,48 @@
 #currently overseen by Morgan
 #class to handle the user inputs in game.
 
+
 import pygame
-from words import Word
 import os
-# from asciimatics.event import KeyboardEvent
 from constants import *
-from words import Word
+from space_station import Space_Station 
 
 
 class User():
-  
-  def __init__(self, screen):
+  # Class to keep track of user inputs 
+
+  def __init__(self):
     self.input = ''
-    self.screen = screen
-    self.word = Word()
 
 
-  def check_text(self):
+  def get_text(self):
+    # Record letters pressed
     for event in pygame.event.get():
       if event.type == pygame.KEYDOWN:
-        self.input += pygame.key.name(event.key)
+        # Deletes letter after backspace 
+        if event.key == pygame.K_BACKSPACE:
+          input_list = list(self.input)
+          del input_list[-1]
+          self.input = ''.join(input_list)
 
-        #Check if word matches and return word if true 
-        if self.word.word.startswith(self.input):
-          if self.word.word == input:
-            return self.input
-          else:
-            return False
+        # Check if space bar or entered was pressed, if so then check guess
+        if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
+          guess = self.input
+          self.input = ''
+          return guess
+          
+        # Add letters to word being typed
+        else:
+          self.input += event.unicode
+          
     
   def display_typed_text(self):
     # Get the text typed by player and display it on screen
-    font = pygame.font.Font('comicsans', 100)
-    text = font.render(self.input, 1, (255, 255, 255))
-    text_rect = text.get_rect(WIDTH/3)
-    self.screen.blitz(text, text_rect)
-    pygame.display.update()
+    font = pygame.font.SysFont('comicsans', 50)
+    text = font.render(self.input, True, WHITE)
+    text_rect = text.get_rect()
+    text_rect.center = (WIDTH/2, 430)
+    WIN.blit(text, text_rect)
 
 
   def sounds(self):
@@ -44,6 +51,4 @@ class User():
 
   
 
-  
-  #handle if word or solution is right, delete asteroid if true, maybe have indicator for failed word/solution
   
