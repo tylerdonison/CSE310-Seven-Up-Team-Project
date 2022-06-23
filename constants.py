@@ -1,3 +1,6 @@
+#This is a file that contains default values that can be called repeatedly.
+#This file will also allow for easy testing of speeds, etc.
+
 import os
 import pygame
 
