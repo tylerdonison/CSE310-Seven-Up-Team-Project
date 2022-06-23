@@ -6,13 +6,17 @@ import pygame
 from constants import ASSET_PATH, MUSIC
 class Button():
 	select_button_sound = os.path.join(ASSET_PATH, "Sounds", "Menu_Navigate_03.wav")
-	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+	def __init__(self, image, pos, text_input, font, base_color, hovering_color, options_size=False):
 		# Scale the image to the appropriate size to accomodate font size
 		self.image = image
-		try:
-			self.image = pygame.transform.scale(image, (350, 75))
-		except TypeError:
-			pass
+		if not options_size:
+			try:
+				self.image = pygame.transform.scale(image, (350, 75))
+			except TypeError:
+				# Pass: no image was given
+				pass
+		else:
+			self.image = pygame.transform.scale(image, (200, 40))
 		self.x_pos = pos[0]
 		self.y_pos = pos[1]
 		self.font = font

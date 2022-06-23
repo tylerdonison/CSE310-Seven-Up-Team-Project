@@ -10,6 +10,6 @@ class Score():
         self._draw_score()
 
     def _draw_score(self) -> None:
-        text = MAIN_FONT.render(f"Player score: {self._score}", 1, WHITE)
-        WIN.blit(text, (100, 0))
+        text = STATS_FONT.render(f"Player score: {self._score}", 1, WHITE)
+        WIN.blit(text, (30, 0))
         pygame.display.update()

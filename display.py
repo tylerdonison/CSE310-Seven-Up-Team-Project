@@ -4,6 +4,8 @@ import pygame
 from words import Word
 from constants import *
 from asteroid import Asteroid
+from health import Health
+from score import Score
 
 pygame.display.set_caption("Seven-Up Space")
 
@@ -19,6 +21,28 @@ class Display():
     Timer = 0
     asteroid_list = []
     clock = pygame.time.Clock()
+
+    # Draw the startup cast before entering game loop  
+
+    SPACE = pygame.transform.scale(pygame.image.load(
+          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
+          ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
+          (WIDTH * 1.1, HEIGHT))
+
+    # Shift the image to the left so that it can fit the whole screen
+    WIN.blit(SPACE, (-50,0))
+
+    SPACESTATION = pygame.transform.scale(pygame.image.load(
+          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
+          ASSET_PATH, "Pictures", "Space-Station", "Space Station.png")), 
+          (SPACESTATION_SIZE))
+          
+    WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
+
+    # Draw the score and the health
+    score = Score()
+    health = Health(10)
+
     while self.run:
 
       # Look for quit and pause events
@@ -51,18 +75,7 @@ class Display():
 
         #handle win?
 
-        #draw background
-        SPACE = pygame.transform.scale(pygame.image.load(
-          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
-          ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
-          (WIDTH, HEIGHT))
-        WIN.blit(SPACE, (0,0))
-
-        SPACESTATION = pygame.transform.scale(pygame.image.load(
-          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
-          ASSET_PATH, "Pictures", "Space-Station", "Space Station.png")), 
-          (SPACESTATION_SIZE))
-        WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
+        
         for rock in asteroid_list:
           WIN.blit(rock.used_image, (rock.x, rock.y))
           

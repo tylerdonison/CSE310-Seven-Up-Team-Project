@@ -10,6 +10,6 @@ class Health():
         self._draw_health()
 
     def _draw_health(self) -> None:
-        text = MAIN_FONT.render(f"Player health: {self._health}", 1, WHITE)
-        WIN.blit(text, (100, 600))
+        text = STATS_FONT.render(f"Player health: {self._health}", 1, WHITE)
+        WIN.blit(text, (WIDTH - 250, 0))
         pygame.display.update()
