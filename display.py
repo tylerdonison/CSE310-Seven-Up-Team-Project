@@ -1,11 +1,14 @@
 import os
 import pygame
+import sys
 
 from words import Word
 from constants import *
 from asteroid import Asteroid
 from health import Health
 from score import Score
+from button import Button
+from menu import Menu
 
 pygame.display.set_caption("Seven-Up Space")
 
@@ -50,7 +53,10 @@ class Display():
         if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_p:
             # pause/unpause
-            self.pause = not self.pause
+            self.pause = not self.pause #True
+            ####### CHERYL ADD ######## 
+            # show pause menu
+            pause_menu()
         if event.type == pygame.QUIT:
           self.run = False
           pygame.quit()
@@ -84,6 +90,47 @@ class Display():
           rock.handle_movement()
           
         pygame.display.update()
+
+###### CHERYL ADD ####### 
+# PAUSE MENU
+def pause_menu(self):
+  WIN.blit(Display.BG, (0, 0))
+
+  MENU_TEXT = self._get_font(50).render("PAUSED", True, "#b68f40")
+  MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
+
+  CONTINUE_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 2.5), 
+                      text_input="CONTINUE", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+  RESTART_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Options Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 3.75), 
+                      text_input="RESTART", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+  QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 5), 
+                      text_input="QUIT", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+  BUTTONS = (CONTINUE_BUTTON, RESTART_BUTTON, QUIT_BUTTON) 
+  
+  while True:
+      MENU_MOUSE_POS = pygame.mouse.get_pos()
+      WIN.blit(MENU_TEXT, MENU_RECT)
+
+      for button in BUTTONS:
+          button.changeColor(MENU_MOUSE_POS)
+          button.update(WIN)
+      
+      for event in pygame.event.get():
+          if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+          if event.type == pygame.MOUSEBUTTONDOWN:
+              if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                  self.pause = False
+              if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
+                  # Clear screen
+                  pygame.display.update()
+                  Menu()
+              if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                  pygame.quit()
+                  sys.exit()
+
+      pygame.display.update()
 
 # Debugging
 def main():
