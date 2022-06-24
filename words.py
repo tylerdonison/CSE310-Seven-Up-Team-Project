@@ -1,5 +1,6 @@
 import random
 from problem import Problem
+import os
 #programming overseen by Jake
 #data for difficulties overseen by Cheryl
 
@@ -17,9 +18,20 @@ class Word(Problem):
     self._verbs = verbs
     self._prepositions = prepositions
     self._articles = articles
-
     self._words = words
     self._word = ""
+
+    
+    here = os.path.dirname(os.path.abspath(__file__)) #I have no idea what this is... i found it on the internet and it fixed our problem
+
+    filename = os.path.join(here, 'word_list.txt')
+
+    self.words = open(filename, 'r')
+    self.word_list = []
+    for word in self.words.readlines():
+
+        self.word_list.append(word[0:len(word) - 1])
+    
 
   def setup_sentence(self):
     self._select_words()
@@ -49,7 +61,18 @@ class Word(Problem):
     self._solution = self.problem
   
 
-  
+  def short_word(self):
+    test_list = ["boy", "girl", "dog", "apple", "horse"]
+    test_int = random.choice(test_list)
+    print("words")
+    return(test_int)
+
+
+  def get_word(self):
+      '''Gets a random word from the list and returns it to director.'''
+      word = random.choice(self.word_list)
+      
+      return word
 
 ''' 
 while(True):      

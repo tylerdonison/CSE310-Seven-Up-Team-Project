@@ -5,7 +5,6 @@
 import pygame
 import os
 from constants import *
-from space_station import Space_Station 
 
 
 class User():
@@ -21,12 +20,15 @@ class User():
       if event.type == pygame.KEYDOWN:
         # Deletes letter after backspace 
         if event.key == pygame.K_BACKSPACE:
-          input_list = list(self.input)
-          del input_list[-1]
-          self.input = ''.join(input_list)
+          if self.input == '':
+            return
+          else:
+            input_list = list(self.input)
+            del input_list[-1]
+            self.input = ''.join(input_list)
 
         # Check if space bar or entered was pressed, if so then check guess
-        if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
+        elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
           guess = self.input
           self.input = ''
           return guess
@@ -41,9 +43,11 @@ class User():
     font = pygame.font.SysFont('comicsans', 50)
     text = font.render(self.input, True, WHITE)
     text_rect = text.get_rect()
-    text_rect.center = (WIDTH/2, 430)
+    text_rect.center = (WIDTH/2, HEIGHT-66)
     WIN.blit(text, text_rect)
 
+
+      
 
   def sounds(self):
     missile_sound = pygame.mixer.Sound(os.path.join(ASSET_PATH, 'Sounds','Shoot_01.wav'))

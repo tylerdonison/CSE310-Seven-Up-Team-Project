@@ -14,7 +14,7 @@ LETTER_SIZE = 5
 ASTEROID_VEL = 5
 BORDER_DISTANCE = 10
 WIDTH = 900
-HEIGHT = 500
+HEIGHT = 700
 
 #This is a file that contains default values that can be called repeatedly.
 #This file will also allow for easy testing of speeds, etc.
@@ -45,7 +45,24 @@ CANNON_HIT = pygame.USEREVENT + 2   #for collision between asteriod and cannon
 DEFAULT_PATH = os.path
 ASSET_PATH = DEFAULT_PATH.join("Assets")
 
+
+SPACE = pygame.transform.scale(pygame.image.load(
+    os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
+    ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
+    (WIDTH, HEIGHT))
+
 SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
+
+SPACESTATION = pygame.transform.scale(pygame.image.load(
+    os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
+    ASSET_PATH, "Pictures", "Space-Station", "Space Station.png")), 
+    (SPACESTATION_SIZE))
+
+# Different asteroid images
+asteroid_image_1 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_1.png"))
+asteroid_image_2 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_2.png"))
+asteroid_image_3 = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Asteroids", "Asteroid_3.png"))
+asteroid_images = [asteroid_image_1, asteroid_image_2, asteroid_image_3]
 
 TIMER_COUNT = 0
 ROCK_FONT = pygame.font.SysFont('comicsans', 40)
