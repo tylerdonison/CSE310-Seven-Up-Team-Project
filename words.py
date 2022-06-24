@@ -10,20 +10,22 @@ class Word(Problem):
   def __init__(self, words):
     super().__init__()
     self._words = words
-    self._words_by_length = dict()
+    self._words_by_difficulty = dict()
     self._word = ""
     self._words_in_level = []
 
 
-  def setup_sentence(self):
+  def setup_word(self):
     self._setup_dictionary()
+    self._setup_difficulty()
     self._select_word()
     self._create_problem()
+    
     
 
   def _select_word(self):
     """randomly selects word"""
-    self._word = random.choice(self._words)
+    self._word = random.choice(self._words_in_level)
 
   def _create_problem(self):
     """sets the value for problem"""
@@ -32,17 +34,18 @@ class Word(Problem):
   
   def _setup_dictionary(self):
     """splits word list into a dictionary based on word length"""
+  
     for word in self._words:
       length = len(word)
       temp_array = []
-      if length in self._words_by_length:
-        temp_array = self._words_by_length[length]
+      if length in self._words_by_difficulty:
+        temp_array = self._words_by_difficulty[length]
         temp_array.append(word)
-        self._words_by_length[length] = temp_array
+        self._words_by_difficulty[length] = temp_array
       
       else:
         temp_array.append(word)
-        self._words_by_length[length] = temp_array
+        self._words_by_difficulty[length] = temp_array
       
   
   def _setup_difficulty(self):
@@ -53,7 +56,7 @@ class Word(Problem):
     # determine size of word array
     length = len(self._words)
     lengths_of_words =[]
-    for key in self._words_by_length:
+    for key in self._words_by_difficulty:
       lengths_of_words.append(key)
     lengths_of_words.sort()
 
@@ -64,11 +67,14 @@ class Word(Problem):
     else:
       words_per_level = 10
     
-    self._words_in_level = self._words_by_length[lengths_of_words[self._difficulty - 1]]
+    self._words_in_level = self._words_by_difficulty[lengths_of_words[self._difficulty]].copy()
 
     if len(self._words_in_level) < words_per_level:
-      if self._difficulty < len(lengths_of_words):
-        self._words_in_level += self._words_by_length[lengths_of_words[self._difficulty]]
+      if self._difficulty < len(lengths_of_words) - 1:
+        self._words_in_level += self._words_by_difficulty[lengths_of_words[self._difficulty + 1]]
+
+      else:
+        self._words_in_level += self._words_by_difficulty[lengths_of_words[self._difficulty - 1]]
       
       
     
@@ -117,9 +123,17 @@ list_words = [ "about", "above", "add", "after", "again", "against",
   "year", "you", "young", "your"]
 
 word = Word(list_words)
-word._setup_dictionary()
-word._setup_difficulty()
-print(word._words_by_length)
+word.set_difficulty(2)
+
+dictionary = word.setup_word()
+
+word2 = Word(list_words)
+word2.set_difficulty(2)
+
+word2.setup_word()
+
+print(word.problem)
+print(word2.problem)
   
 
   
