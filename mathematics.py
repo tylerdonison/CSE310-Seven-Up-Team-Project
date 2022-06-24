@@ -7,6 +7,7 @@ import random
 
 class Mathematics(Problem):
   def __init__(self, numbers):
+    super.__init__()
     self._var_1 = 0
     self._var_2 = 0
     self._operator = ""
