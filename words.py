@@ -15,7 +15,7 @@ class Word(Problem):
     self._words_in_level = []
 
 
-  def setup_word(self):
+  def setup_sentence(self):
     self._setup_dictionary()
     self._setup_difficulty()
     self._select_word()
@@ -121,20 +121,6 @@ list_words = [ "about", "above", "add", "after", "again", "against",
   "when", "where", "which", "while", "white", "who", "why", "will", 
   "with", "without", "word", "work", "world", "would", "write", 
   "year", "you", "young", "your"]
-
-word = Word(list_words)
-word.set_difficulty(2)
-
-dictionary = word.setup_word()
-
-word2 = Word(list_words)
-word2.set_difficulty(2)
-
-word2.setup_word()
-
-print(word.problem)
-print(word2.problem)
-  
 
   
 
