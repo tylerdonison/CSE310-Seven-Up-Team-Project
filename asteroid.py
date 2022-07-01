@@ -19,7 +19,7 @@ class Asteroid():
         self.y = -200
         self.x = 0
         self.center = (-200,-200)
-  #      self.problem = problem
+        self.problem = problem
         #self.user = User()
 
     def randomize(self, randomize_size=False):
