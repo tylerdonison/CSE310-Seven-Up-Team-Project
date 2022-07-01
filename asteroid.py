@@ -7,7 +7,7 @@ class Asteroid():
     def __init__(self, enemy_word, x, y, used_image):
         self.used_image = used_image
         self.size = (100, 100)
-        self.rotation = 0
+        self.rotation = random.randint(0,361)
         self.x = x
         self.y = y
         self.center = (-200,-200)
@@ -21,7 +21,7 @@ class Asteroid():
             self.size = (random_size, random_size)
         else:
             self.size = self.size_by_word()
-        # self.rotation = random.randint(0,361)
+        self.rotation = random.randint(0,361)
 
         
     def size_by_word(self):
@@ -34,8 +34,8 @@ class Asteroid():
         self.rotation += 1
         if self.rotation > 360:
             self.rotation = 0
-        self.center = (self.size[0]/2+self.x, self.size[1]/2+self.y)
-    
+        self.center = (self.size[0]/2+self.x + 5, self.size[1]/2+self.y)
+
     
     def draw_asteroid(self):
         WIN.blit(self.used_image, (self.x, self.y))          

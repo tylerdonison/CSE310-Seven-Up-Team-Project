@@ -5,7 +5,9 @@ from constants import *
 class Bullet():
 
     def __init__(self, x, y):
-        self.img = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Cannon", "Turret01.png"))
+        self.size = (40,55)
+        self.image = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Cannon", "Turret01.png"))
+        self.img = pygame.transform.rotate(pygame.transform.scale(self.image, self.size), 270)
         self.x = x
         self.y = y
         self.vel = 5
@@ -14,11 +16,11 @@ class Bullet():
 
     def draw(self):
       # draws the bullet
-        WIN.blit(self.img, (self.x, self.y))
+      WIN.blit(self.img, (self.x, self.y))
 
     def move(self, vel):
       # moves bullet towards asteroid
-        self.y += vel
+      self.y += vel
 
     def off_screen(self, height):
       # checks if the bullet is off screen

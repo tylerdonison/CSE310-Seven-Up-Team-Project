@@ -71,7 +71,9 @@ class Word(Problem):
   def get_word(self):
       '''Gets a random word from the list and returns it to director.'''
       word = random.choice(self.word_list)
-      
+      while len(word) > 4:
+        word = random.choice(self.word_list)
+
       return word
 
 ''' 

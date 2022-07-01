@@ -11,33 +11,22 @@ class Space_Station():
   
   def __init__(self):
     self.bullets = []
-    self.target = []
+    self.target = {}
     self.mask = self.mask = pygame.mask.from_surface(SPACESTATION)
     self.x = WIDTH/2-(SPACESTATION_SIZE[0]/2) 
     self.y = HEIGHT-(SPACESTATION_SIZE[0]/2)+100
 
 
-
-  def shoot(self, x):
-    # Creates a bullet with starting coordinates
-    bullet = Bullet(x + 10, 600)
+  def create_bullet(self, obj):
+    # Creates a bullet object
+    bullet = Bullet(obj.x + 100, HEIGHT-(SPACESTATION_SIZE[0]/2)+100)
     self.bullets.append(bullet)
-  
+    self.target[bullet] = obj
 
   def draw_bullet(self):
     # Handles drawing more than one bullet on the screen at once
     for bullet in self.bullets:
-      bullet.draw()
-
-  def move_bullets(self, obj):
-      for bullet in self.bullets:
-        bullet.move(-4)
-        if bullet.collision(obj):
-            # Delete asteroid from list, explosion image
-            self.bullets.remove(bullet)
-            return obj
-        else:
-          return None
+      WIN.blit(bullet.img, (bullet.x, bullet.y))
             
 
   def space_station_collide(self, obj):
@@ -61,7 +50,24 @@ class Space_Station():
     if obj.x >= offset_left and obj.x <= offset_right and obj.y > HEIGHT / 2 - 70:
       return True
 
+  def check_asteroid_hit(self, obj):
+    for bullet in self.bullets:
+      if bullet.y <= 0:
+        self.bullets.remove(bullet)
+      if bullet.y <= obj.y + 100:
+        self.bullets.remove(bullet)
+        return True
 
+  def handle_bullets(self):
+    for bullet in self.bullets:
+      bullet.y -= 10
+
+
+
+
+
+
+      
 ###########################################################################
 # Add bullet movement to display, where game loops or where enmies are drawn
 # space_station.move_bullets(asteroid object)   

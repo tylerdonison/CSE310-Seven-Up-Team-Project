@@ -36,7 +36,7 @@ BROWN =  (255,  255,  0)
 MAIN_FONT = pygame.font.SysFont("comicsans", 100) #can change, just showing that fonts can be made via this, first variable is the system's font, second is the size
 
 FPS = 60
-ASTEROID_VEL = 5
+ASTEROID_VEL = 3
 BORDER_DISTANCE = 10 #to spawn asteroids in the borders of the game
 LETTER_SIZE = 5 #for use in asteroids
 
@@ -66,3 +66,14 @@ asteroid_images = [asteroid_image_1, asteroid_image_2, asteroid_image_3]
 
 TIMER_COUNT = 0
 ROCK_FONT = pygame.font.SysFont('comicsans', 40)
+
+explosion_anim = []
+for i in range(16):
+    if i < 10:
+        filename = 'expl_01_000{}.png'.format(i)
+    if i >= 10:
+        filename = 'expl_01_00{}.png'.format(i)
+    img = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "explosion", filename)).convert()
+    img.set_colorkey(BLACK)
+    img_lg = pygame.transform.scale(img, (75, 75))
+    explosion_anim.append(img_lg)

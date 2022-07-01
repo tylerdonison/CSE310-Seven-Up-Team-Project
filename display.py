@@ -17,13 +17,14 @@ class Display():
   def __init__(self):
     self.run = True
     self.pause = False
-    self.object = ''
 
 
 
   def draw_window(self):
     Timer = 0
     asteroid_list = []
+    objects = []
+    hit = False
     station = Space_Station()
     user_input = User()
     clock = pygame.time.Clock()
@@ -33,7 +34,6 @@ class Display():
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           self.run = False
-          pygame.quit()
         if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_p:
             # pause/unpause
@@ -48,8 +48,7 @@ class Display():
         # if Timer % 60 == 0:
         for event in pygame.event.get():
           if event.type == pygame.QUIT:
-            # self.run = False
-            pygame.quit()
+            self.run = False
               
 
         #draw background
@@ -63,11 +62,15 @@ class Display():
         if len(asteroid_list) == 0:
           for i in range(7):
             enemy_word = word.get_word()
-            rock = Asteroid(enemy_word, random.randrange(0, 400), random.randrange(-1500, -50), random.choice(asteroid_images))
+            rock = Asteroid(enemy_word, random.randrange(0, 400), random.randrange(-2000, -50), random.choice(asteroid_images))
             rock.randomize(True)
+
+
 
             # List of asteroids
             asteroid_list.append(rock)
+
+
 
         # Drawing asteroids on screen
         for asteroid in asteroid_list:
@@ -81,17 +84,25 @@ class Display():
 
         # Checking if guess is right
         for asteroid in asteroid_list:
-          if asteroid.enemy_word == guess:
-            self.object = asteroid
-            station.shoot(asteroid.x)
+          if guess == asteroid.enemy_word and asteroid.y > 0:
+            objects.append(asteroid)
+            station.create_bullet(asteroid)
 
-            # station.move_bullets(asteroid)
-            # asteroid_list.remove(asteroid)
+
+
+        station.draw_bullet()
+        station.handle_bullets()
+
+
+        for obj in objects:
+          if station.check_asteroid_hit(obj):
+            exp = Explosion(obj)
+            exp.update()
+            objects.remove(obj)
+            asteroid_list.remove(obj)
 
 
         for asteroid in asteroid_list[:]:
-          station.move_bullets(self.object)
-          station.draw_bullet()
           if station.space_station_collide(asteroid):
             asteroid_list.remove(asteroid)
 
@@ -101,17 +112,59 @@ class Display():
         
         # asteroid_hit = station.move_bullets(self.object)
         
-        if station.move_bullets == True:
-          asteroid_list.remove(self.object)
-          self.object = ''
+        # if station.move_bullets == True:
+        #   asteroid_list.remove(self.object)
+       
 
           
 
         pygame.display.update()
+    sys.exit()
 
         
+  # def asteroid_explosion(self, obj):
+  #   frame_rate = 50
+  #   image = explosion_anim[0]
+  #   center = obj.center
+  #   rect = image.rect(center)
+  #   frame = 0
+  #   last_update = pygame.time.get_ticks()
+  #   now = pygame.time.get_ticks()
 
 
+  #   if now - last_update > frame_rate:
+  #       last_update = now
+  #       frame += 1
+  #       if frame == len(explosion_anim):
+  #           return
+  #       else:
+  #           center = center
+  #           image = explosion_anim[frame]
+  #           rect = image.get_rect()
+            
+class Explosion():
+    def __init__(self, obj):
+        self.obj = obj
+        self.size = (100,100)
+        self.image = explosion_anim[0]
+        self.rect = self.image.get_rect()
+        self.rect.center = obj.center
+        self.frame = 0
+        self.last_update = pygame.time.get_ticks()
+        self.frame_rate = 50
+
+    def update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > self.frame_rate:
+            self.last_update = now
+            self.frame += 1
+            if self.frame == len(explosion_anim[self.size]):
+                return
+            else:
+                center = self.rect.center
+                self.image = explosion_anim[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
 
 
 # Debugging
