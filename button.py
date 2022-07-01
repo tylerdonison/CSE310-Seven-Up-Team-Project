@@ -4,6 +4,8 @@
 import os
 import pygame
 from constants import ASSET_PATH, MUSIC
+
+
 class Button():
 	select_button_sound = os.path.join(ASSET_PATH, "Sounds", "Menu_Navigate_03.wav")
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color, options_size=False):
