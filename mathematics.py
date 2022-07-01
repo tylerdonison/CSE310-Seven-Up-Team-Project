@@ -7,16 +7,17 @@ import random
 
 class Mathematics(Problem):
   def __init__(self, numbers):
-    super.__init__()
+    super().__init__()
     self._var_1 = 0
     self._var_2 = 0
     self._operator = ""
     
-    self._operators = ["+", "-", "/", "*"]
+    self._operators = []
     self._numbers = numbers
 
   def math_setup(self):
     self._set_random_vars()
+    self._setup_difficulty()
     self._set_random_operator()
     self._find_solution()
     self._create_problem()
@@ -80,7 +81,20 @@ class Mathematics(Problem):
     
     else:
       self._var_1 += self._var_2 - remainder
-
+  
+  def _setup_difficulty(self):
+    if self._difficulty == 1:
+      self._operators = ["+"]
+    
+    elif self._difficulty == 2:
+      self._operators = ["+", "-"]
+    
+    elif self._difficulty == 3:
+      self._operators = ["+", "-", "*"]
+    
+    elif self._difficulty > 3:
+      self._operators = ["+", "-", "*", "/"]
+    
 
 
 '''
