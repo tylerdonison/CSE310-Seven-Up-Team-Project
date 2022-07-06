@@ -6,7 +6,7 @@ class Bullet():
 
     def __init__(self, x, y):
         self.size = (40,55)
-        self.image = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Cannon", "Turret01.png"))
+        self.image = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Bullet", "new_bullet.png"))
         self.img = pygame.transform.rotate(pygame.transform.scale(self.image, self.size), 270)
         self.x = x
         self.y = y

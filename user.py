@@ -14,29 +14,28 @@ class User():
     self.input = ''
 
 
-  def get_text(self):
+  def get_text(self, event):
     # Record letters pressed
-    for event in pygame.event.get():
-      if event.type == pygame.KEYDOWN:
-        # Deletes letter after backspace 
-        if event.key == pygame.K_BACKSPACE:
-          if self.input == '':
-            return
-          else:
-            input_list = list(self.input)
-            del input_list[-1]
-            self.input = ''.join(input_list)
+    # for event in pygame.event.get():
+    # if event.type == pygame.KEYDOWN:
+    # Deletes letter after backspace 
+    if event.key == pygame.K_BACKSPACE:
+      if self.input == '':
+        return
+      else:
+        input_list = list(self.input)
+        del input_list[-1]
+        self.input = ''.join(input_list)
 
-        # Check if space bar or entered was pressed, if so then check guess
-        elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-          guess = self.input
-          self.input = ''
-          return guess
-          
-        # Add letters to word being typed
-        else:
-          self.input += event.unicode
-          
+    # Check if space bar or entered was pressed, if so then check guess
+    elif event.key == pygame.K_RETURN:
+      guess = self.input
+      self.input = ''
+      return guess
+      
+    # Add letters to word being typed
+    else:
+      self.input += event.unicode
     
   def display_typed_text(self):
     # Get the text typed by player and display it on screen
@@ -45,7 +44,7 @@ class User():
     text_rect = text.get_rect()
     text_rect.center = (WIDTH/2, HEIGHT-66)
     WIN.blit(text, text_rect)
-
+    
 
       
 
