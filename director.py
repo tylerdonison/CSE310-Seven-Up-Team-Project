@@ -68,7 +68,7 @@ class Director():
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
-                if self.guess == asteroid.enemy_word and asteroid.y > 0 and asteroid not in self.targets:
+                if self.guess == asteroid.enemy_word and 300 - asteroid.y < 300 and asteroid not in self.targets:
                     self.targets.append(asteroid)
                     station.create_bullet(asteroid)
                     self.guess = None

@@ -11,7 +11,6 @@ DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
 
 LETTER_SIZE = 5
-ASTEROID_VEL = 5
 BORDER_DISTANCE = 10
 WIDTH = 900
 HEIGHT = 700
@@ -36,7 +35,7 @@ BROWN =  (255,  255,  0)
 MAIN_FONT = pygame.font.SysFont("comicsans", 100) #can change, just showing that fonts can be made via this, first variable is the system's font, second is the size
 
 FPS = 60
-ASTEROID_VEL = 3
+ASTEROID_VEL = 1
 BORDER_DISTANCE = 10 #to spawn asteroids in the borders of the game
 LETTER_SIZE = 5 #for use in asteroids
 
