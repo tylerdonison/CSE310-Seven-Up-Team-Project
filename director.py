@@ -151,11 +151,11 @@ class Director():
         self.health.determine_start_health(self.difficulty)
         self.start_game()
         
-def main():
-  """Directs user to the menu, game loop, etc.
-  """
-  director = Director()
-  director.setup_game()
+# def main():
+#   """Directs user to the menu, game loop, etc.
+#   """
+#   director = Director()
+#   director.setup_game()
 
-if __name__ == "__main__":
-  main()
+# if __name__ == "__main__":
+#   main()
