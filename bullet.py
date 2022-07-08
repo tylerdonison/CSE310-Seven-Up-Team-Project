@@ -5,7 +5,7 @@ from constants import *
 class Bullet():
 
     def __init__(self, x, y):
-        self.size = (40,55)
+        self.size = (30,45)
         self.image = pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Bullet", "new_bullet.png"))
         self.img = pygame.transform.rotate(pygame.transform.scale(self.image, self.size), 270)
         self.x = x

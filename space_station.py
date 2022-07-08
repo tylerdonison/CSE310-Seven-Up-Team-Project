@@ -19,9 +19,14 @@ class Space_Station():
 
   def create_bullet(self, obj):
     # Creates a bullet object
-    bullet = Bullet(obj.x + 100, HEIGHT-(SPACESTATION_SIZE[0]/2)+100)
-    self.bullets.append(bullet)
-    self.target[bullet] = obj
+    if len(obj.enemy_word) > 4:
+      bullet = Bullet(obj.center[0] + 5, HEIGHT-10)
+      self.bullets.append(bullet)
+      self.target[bullet] = obj
+    else:
+      bullet = Bullet(obj.center[0], HEIGHT-10)
+      self.bullets.append(bullet)
+      self.target[bullet] = obj
 
   def draw_bullet(self):
     # Handles drawing more than one bullet on the screen at once
@@ -34,20 +39,21 @@ class Space_Station():
     split = self.x / 6
     offset_left = 0 + split + split
     offset_right = WIDTH - split - split
+    offset_height = (len(obj.enemy_word) - 3) * 5
 
-    if obj.x < 300:
-      difference = 300 - obj.x 
+    if obj.center[0] < 300:
+      difference = 300 - obj.center[0]
       limit = difference * 1.176470 - 10
-      if obj.y > HEIGHT - limit:
+      if obj.y + offset_height > HEIGHT - limit:
         return True
     
-    if obj.x < 900 and obj.x > 600:
-      difference = 300 - obj.x 
+    if obj.center[0] < 900 and obj.center[0] > 600:
+      difference = 300 - obj.center[0] 
       limit = difference / 1.176470 - 10
-      if obj.y > HEIGHT - limit:
+      if obj.y + offset_height> HEIGHT - limit:
         return True
 
-    if obj.x >= offset_left and obj.x <= offset_right and obj.y > HEIGHT / 2 - 70:
+    if obj.x >= offset_left and obj.x <= offset_right and obj.y + offset_height > HEIGHT / 2 - 70:
       return True
 
   def check_asteroid_hit(self, obj):

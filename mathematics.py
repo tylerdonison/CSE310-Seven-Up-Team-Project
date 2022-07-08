@@ -1,21 +1,27 @@
 from problem import Problem
 import random
+import operator
 #programming overseen by Jake
 #data for difficulties overseen by Cheryl
 
 #class for handling math module, will include difficultly, problems, etcs.
 
-class Mathematics(Problem):
-  def __init__(self, numbers):
+class Mathematics():
+  def __init__(self):
     self._var_1 = 0
     self._var_2 = 0
     self._operator = ""
+    self.operators = None
+    self.answer = None
+    self.num1 = None
+    self.num2 = None
     
-    self._operators = ["+", "-", "/", "*"]
-    self._numbers = numbers
+    # self._operators = []
+    # self._numbers = numbers
 
   def math_setup(self):
     self._set_random_vars()
+    self._setup_difficulty()
     self._set_random_operator()
     self._find_solution()
     self._create_problem()
@@ -79,9 +85,42 @@ class Mathematics(Problem):
     
     else:
       self._var_1 += self._var_2 - remainder
+  
+  def _setup_difficulty(self):
+    if self._difficulty == 1:
+      self._operators = ["+"]
+    
+    elif self._difficulty == 2:
+      self._operators = ["+", "-"]
+    
+    elif self._difficulty == 3:
+      self._operators = ["+", "-", "*"]
+    
+    elif self._difficulty > 3:
+      self._operators = ["+", "-", "*", "/"]
+    
 
+  def produce_math_problem(self, diff):
 
+    if diff == "easy":
+      self.operators = {
+        '+': operator.add,
+        '-': operator.sub
+      }
+    
+    self.num_1 = random.randint(1, 10)
+    self.num_2 = random.randint(1, 10)
+    self.operation = random.choice(list(self.operators.keys()))
+    self.answer = self.operators.get(self.operation)(self.num_1, self.num_2)
+    # math_dict[answer] = 
+    # if diff == "medium":
 
+    # if diff == "hard":
+
+  def get_printed_problem(self):
+    # text = f'{self.num_1}{self.operation}{self.num_2}'
+    text = str(self.num_1) + str(self.operation) + str(self.num_2)
+    return text
 '''
 done = False
 while not done:

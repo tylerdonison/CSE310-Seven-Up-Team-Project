@@ -9,10 +9,10 @@ from constants import *
 # import random
 # import sys
 
-pygame.display.set_caption("Seven-Up Space")
+# WIN.set_caption("Seven-Up Space")
 
 class Display():
-  #class to handle game display.
+  #class to handle game WIN.
   
   def __init__(self):
     pass
@@ -20,7 +20,6 @@ class Display():
 
 
   def draw_window(self):
-    Timer = 0
     
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
@@ -32,9 +31,19 @@ class Display():
     # draw space station
     WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
       
-    # pygame.display.update()
 
-        
+  def game_over(self):
+    game_over_text = FONT.render(f"GAME OVER", True, (200,200,200))
+    score_text = FONT.render(f"TOTAL SCORE: X", True, (200,200,200))
+    # zombie_count_text = pygame.font.SysFont.render(f"ZOMBIE COUNT: {zombie_count}", True, (200,200,200))
+    #Drawing elements
+    WIN.fill((0, 0, 0))
+    WIN.blit(game_over_text, (WIDTH/2 - (game_over_text.get_width()/2), HEIGHT/9))
+    WIN.blit(score_text, (WIDTH/2 - (score_text.get_width()/2), (HEIGHT/4)))
+    # WIN.blit(zombie_count_text, (WIDTH/2 - (zombie_count_text.get_width()/2), (HEIGHT/2 + zombie_count_text.get_height() * 2.5)))
+    
+
+
   # def asteroid_explosion(self, obj):
   #   frame_rate = 50
   #   image = explosion_anim[0]
@@ -83,7 +92,7 @@ class Explosion():
 # Debugging
 def main():
   display = Display()
-  display.draw_window()
+  WIN.draw_window()
 
 if __name__ == "__main__":
   main()
