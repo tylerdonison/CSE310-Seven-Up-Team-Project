@@ -60,7 +60,7 @@ class Space_Station():
     for bullet in self.bullets:
       if bullet.y <= 0:
         self.bullets.remove(bullet)
-      if bullet.y <= obj.y + 100:
+      if bullet.y <= obj.y + 100 :
         self.bullets.remove(bullet)
         return True
 

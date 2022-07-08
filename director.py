@@ -134,30 +134,11 @@ class Director():
                                 if MAIN_MENU.checkForInput(OPTIONS_MOUSE_POS):
                                 # Go back to main function
                                     loop = False
-                                    print("loop")
                                 elif QUIT_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
                                     pygame.quit()
                                     sys.exit()
-                print('out')
                 self.run = False
-
-                
-                # text = STATS_FONT.render("You Lost!", 1, (8, 214, 255))
-                # WIN.blit(text,(300, 300))
-                # EXIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 3.75), 
-                #             text_input="Exit", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
-                # EXIT_BUTTON.changeColor(pygame.mouse.get_pos())
-                # EXIT_BUTTON.update(WIN)
-                # for event in pygame.event.get():
-                #     if event.type == pygame.QUIT:
-                #         pygame.quit()
-                #         sys.exit()
-                #     if event.type == pygame.MOUSEBUTTONDOWN:
-                #         if EXIT_BUTTON.checkForInput(pygame.mouse.get_pos()):
-                #             # self.play()
-                #             pygame.display.update()
-                #             self.run == False
-                   
+   
 
             pygame.display.update()
 
