@@ -85,7 +85,7 @@ class Director():
                 for i in range(10):
                     if self.mode == "typing":
                         enemy_word = word.get_word(self.difficulty)
-                        rock = Asteroid(enemy_word, random.randint(-50, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), enemy_word)
+                        rock = Asteroid(enemy_word, random.randint(-40, WIDTH - 200), random.randint(-2500, -150), random.randint(0, 2), enemy_word)
                         rock.size_by_word()
                     else:
                         math = Mathematics()

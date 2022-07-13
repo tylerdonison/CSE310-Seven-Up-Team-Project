@@ -10,7 +10,7 @@ class Mathematics():
   def __init__(self):
     self._var_1 = 0
     self._var_2 = 0
-    self._operator = ""
+    self.operator = "n"
     self.operation = "n"
     self.answer = "n"
     self.num_1 = "n"
@@ -107,12 +107,27 @@ class Mathematics():
         '+': operator.add,
         '-': operator.sub
       }
+    elif diff == "medium":
+      self.operators = {
+        '+': operator.add,
+        '-': operator.sub
+      }
+    
+    elif diff == "hard":
+      self.operators = {
+        '+': operator.add,
+        '-': operator.sub,
+        '*': operator.mul
+      }
     
     self.num_1 = random.randint(1, 10)
     self.num_2 = random.randint(1, 10)
     self.operation = random.choice(list(self.operators.keys()))
     self.answer = self.operators.get(self.operation)(self.num_1, self.num_2)
 
+    if diff == "easy":
+        if self.answer < 0:
+          self.produce_math_problem(diff)
 
   def get_printed_problem(self):
     text_list = [self.num_1,self.operation, self.num_2]
