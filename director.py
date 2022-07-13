@@ -73,7 +73,7 @@ class Director():
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
-                if self.guess == asteroid.enemy_word and 300 - asteroid.y < 300 and asteroid not in self.targets:
+                if self.guess == asteroid.answer and 300 - asteroid.y < 300 and asteroid not in self.targets:
                     self.targets.append(asteroid)
                     station.create_bullet(asteroid)
                     self.guess = None
@@ -83,8 +83,17 @@ class Director():
             if len(self.asteroid_list) == 0:
             # while len(self.asteroid_list) < 7:
                 for i in range(10):
-                    enemy_word = word.get_word(self.difficulty)
-                    rock = Asteroid(enemy_word, random.randint(-70, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2))
+                    if self.mode == "typing":
+                        enemy_word = word.get_word(self.difficulty)
+                        rock = Asteroid(enemy_word, random.randint(-50, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), enemy_word)
+                        rock.size_by_word()
+                    else:
+                        math = Mathematics()
+                        math.produce_math_problem(self.difficulty)
+                        enemy_word = math.get_printed_problem()
+                        answer = math.get_answer()
+                        rock = Asteroid(enemy_word, random.randint(-70, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), answer)
+
                     # rock.size_by_word()
                     self.asteroid_list.append(rock)
 
@@ -144,18 +153,22 @@ class Director():
 
 
     def setup_game(self):
-        # # Sets variables based on difficulty chosen
+        # Sets variables based on difficulty chosen
         player_choice = menu.draw_window()
         self.difficulty = player_choice[1]
         self.mode = player_choice[0]
         self.health.determine_start_health(self.difficulty)
         self.start_game()
-        
-# def main():
-#   """Directs user to the menu, game loop, etc.
-#   """
-#   director = Director()
-#   director.setup_game()
+        # math = Mathematics()
+        # # math.produce_math_problem
+        # math.get_printed_problem
+        # print(type(math.text))
 
-# if __name__ == "__main__":
-#   main()
+def main():
+  """Directs user to the menu, game loop, etc.
+  """
+  director = Director()
+  director.setup_game()
+
+if __name__ == "__main__":
+  main()

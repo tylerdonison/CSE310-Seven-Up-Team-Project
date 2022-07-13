@@ -11,10 +11,11 @@ class Mathematics():
     self._var_1 = 0
     self._var_2 = 0
     self._operator = ""
-    self.operators = None
-    self.answer = None
-    self.num1 = None
-    self.num2 = None
+    self.operation = "n"
+    self.answer = "n"
+    self.num_1 = "n"
+    self.num_2 = "n"
+    self.text = self.get_printed_problem()
     
     # self._operators = []
     # self._numbers = numbers
@@ -101,7 +102,6 @@ class Mathematics():
     
 
   def produce_math_problem(self, diff):
-
     if diff == "easy":
       self.operators = {
         '+': operator.add,
@@ -112,15 +112,17 @@ class Mathematics():
     self.num_2 = random.randint(1, 10)
     self.operation = random.choice(list(self.operators.keys()))
     self.answer = self.operators.get(self.operation)(self.num_1, self.num_2)
-    # math_dict[answer] = 
-    # if diff == "medium":
 
-    # if diff == "hard":
 
   def get_printed_problem(self):
-    # text = f'{self.num_1}{self.operation}{self.num_2}'
-    text = str(self.num_1) + str(self.operation) + str(self.num_2)
-    return text
+    text_list = [self.num_1,self.operation, self.num_2]
+    self.text = ""
+    for i in text_list:
+      self.text += str(i)
+    return self.text
+
+  def get_answer(self):
+    return str(self.answer)
 '''
 done = False
 while not done:

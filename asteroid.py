@@ -4,11 +4,12 @@ from constants import *
 
 class Asteroid():
 
-    def __init__(self, enemy_word, x, y, num):
+    def __init__(self, enemy_word, x, y, num, answer):
         self.num = num
         self.used_image = asteroid_images[num]
         self.enemy_word = enemy_word
-        self.size = self.size_by_word()
+        self.answer = answer
+        self.size = (200, 200)
         self.rotation = 0
         self.x = x
         self.y = y
@@ -29,7 +30,7 @@ class Asteroid():
     def size_by_word(self):
         length = len(self.enemy_word)
         size = length * 20 + 150
-        return (size, size - length * 9)
+        self.size = (size, size - length * 9)
 
     def handle_movement(self):
         self.y += ASTEROID_VEL
