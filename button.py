@@ -13,7 +13,7 @@ class Button():
 		self.image = image
 		if not options_size:
 			try:
-				self.image = pygame.transform.scale(image, (350, 75))
+				self.image = pygame.transform.scale(image, (350, 90))
 			except TypeError:
 				# Pass: no image was given
 				pass

@@ -1,5 +1,6 @@
 import random
 from problem import Problem
+import os
 #programming overseen by Jake
 #data for difficulties overseen by Cheryl
 
@@ -7,21 +8,28 @@ from problem import Problem
 
 class Word(Problem):
   
-  def __init__(self, words):
+  def __init__(self):
     super().__init__()
-    self._words = words
     self._words_by_difficulty = dict()
     self._word = ""
     self._words_in_level = []
+    self.word_list = []
+    self.create_list()
 
 
+  def create_list(self):
+    here = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(here, "word_list.txt")
+    self.words = open(filename, 'r')
+    for word in self.words.readlines():
+      self.word_list.append(word[0:len(word) - 1])
+
+     
   def setup_sentence(self):
     self._setup_dictionary()
     self._setup_difficulty()
     self._select_word()
     self._create_problem()
-    
-    
 
   def _select_word(self):
     """randomly selects word"""
@@ -76,7 +84,22 @@ class Word(Problem):
       else:
         self._words_in_level += self._words_by_difficulty[lengths_of_words[self._difficulty - 1]]
       
+
+
+  def get_word(self, difficulty):
+      '''Gets a random word from the list and returns it to director.'''
+      word = random.choice(self.word_list)
+      if difficulty == "easy":
+        while len(word) > 4:
+          word = random.choice(self.word_list)
+      if difficulty == "medium":
+        while len(word) <= 3 and len(word) >= 7:
+          word = random.choice(self.word_list)
+      if difficulty == "hard":
+        while len(word) < 4:
+          word = random.choice(self.word_list)
       
+      return word.lower()
     
 list_words = [ "about", "above", "add", "after", "again", "against",
  "air", "all", "almost", "also", "always", "am", "America", "an", 

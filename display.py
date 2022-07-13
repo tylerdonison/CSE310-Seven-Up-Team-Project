@@ -2,139 +2,98 @@ import os
 import pygame
 import sys
 
-from words import Word
+# from words import Word
 from constants import *
-from asteroid import Asteroid
-from health import Health
-from score import Score
-from button import Button
+# from asteroid import Asteroid
+# from user import User
+# from space_station import Space_Station
+# import random
+# import sys
 
-
-pygame.display.set_caption("Seven-Up Space")
+# WIN.set_caption("Seven-Up Space")
 
 class Display():
-  #class to handle game display.
+  #class to handle game WIN.
   
   def __init__(self):
-    self.run = True
-    self.pause = False
-    self.draw_window()
-  
+    pass
+
+
+
   def draw_window(self):
-    Timer = 0
-    asteroid_list = []
-    clock = pygame.time.Clock()
-
-    # Draw the startup cast before entering game loop  
-
-    SPACE = pygame.transform.scale(pygame.image.load(
-          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
-          ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
-          (WIDTH * 1.1, HEIGHT))
-
-    # Shift the image to the left so that it can fit the whole screen
-    WIN.blit(SPACE, (-50,0))
-
-    SPACESTATION = pygame.transform.scale(pygame.image.load(
-          os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
-          ASSET_PATH, "Pictures", "Space-Station", "Space Station.png")), 
-          (SPACESTATION_SIZE))
+    
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        self.run = False
           
+    #draw background
+    WIN.blit(SPACE, (0,0))
+
+    # draw space station
     WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
+      
 
-    # Draw the score and the health
-    score = Score()
-    health = Health(10)
+  def game_over(self):
+    game_over_text = FONT.render(f"GAME OVER", True, (200,200,200))
+    score_text = FONT.render(f"TOTAL SCORE: X", True, (200,200,200))
+    # zombie_count_text = pygame.font.SysFont.render(f"ZOMBIE COUNT: {zombie_count}", True, (200,200,200))
+    #Drawing elements
+    WIN.fill((0, 0, 0))
+    WIN.blit(game_over_text, (WIDTH/2 - (game_over_text.get_width()/2), HEIGHT/9))
+    WIN.blit(score_text, (WIDTH/2 - (score_text.get_width()/2), (HEIGHT/4)))
+    # WIN.blit(zombie_count_text, (WIDTH/2 - (zombie_count_text.get_width()/2), (HEIGHT/2 + zombie_count_text.get_height() * 2.5)))
+    
 
-    while self.run:
 
-      # Look for quit and pause events
-      for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_p:
-            # pause/unpause
-            self.pause = not self.pause #True
-            # show pause menu
-            self.pause_menu()
-        if event.type == pygame.QUIT:
-          self.run = False
-          pygame.quit()
+  # def asteroid_explosion(self, obj):
+  #   frame_rate = 50
+  #   image = explosion_anim[0]
+  #   center = obj.center
+  #   rect = image.rect(center)
+  #   frame = 0
+  #   last_update = pygame.time.get_ticks()
+  #   now = pygame.time.get_ticks()
 
-      if not self.pause:
-        clock.tick(FPS)
-        Timer += 1
-        print(Timer)
-        if Timer % 60 == 0:
-          test_list = ["boy", "girl", "dog", "apple", "horse"]
-          word = Word(test_list)
-          word.setup_sentence()
-          rock = Asteroid(word)
-          # rock = Asteroid()
-          rock.randomize(True)
-          asteroid_list.append(rock)
 
-        
+  #   if now - last_update > frame_rate:
+  #       last_update = now
+  #       frame += 1
+  #       if frame == len(explosion_anim):
+  #           return
+  #       else:
+  #           center = center
+  #           image = explosion_anim[frame]
+  #           rect = image.get_rect()
+            
+class Explosion():
+    def __init__(self, obj):
+        self.obj = obj
+        self.size = (100,100)
+        self.image = explosion_anim[0]
+        self.rect = self.image.get_rect()
+        self.rect.center = obj.center
+        self.frame = 0
+        self.last_update = pygame.time.get_ticks()
+        self.frame_rate = 50
 
-          #cannon hit event
-          #correct typed event
-
-        #handle win?
-
-        
-        for rock in asteroid_list:
-          WIN.blit(rock.used_image, (rock.x, rock.y))
-          
-          word_text = ROCK_FONT.render(rock.problem.problem, 1, WHITE)
-          WIN.blit(word_text, rock.center)
-          rock.handle_movement()
-          
-        pygame.display.update()
-  
-
-  # PAUSE MENU
-  def pause_menu(self):
-      BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "MenuBackground.png")), (WIDTH,HEIGHT))
-      WIN.blit(BG, (0, 0))
-
-      MENU_TEXT = self._get_font(50).render("PAUSED", True, "#b68f40")
-      MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
-
-      CONTINUE_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 2.5), 
-                          text_input="CONTINUE", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
-      QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 5), 
-                          text_input="QUIT", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
-      BUTTONS = (CONTINUE_BUTTON, QUIT_BUTTON) 
-
-      while True:
-          MENU_MOUSE_POS = pygame.mouse.get_pos()
-          WIN.blit(MENU_TEXT, MENU_RECT)
-
-          for button in BUTTONS:
-              button.changeColor(MENU_MOUSE_POS)
-              button.update(WIN)
-          
-          for event in pygame.event.get():
-              if event.type == pygame.QUIT:
-                  pygame.quit()
-                  sys.exit()
-              if event.type == pygame.MOUSEBUTTONDOWN:
-                  if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
-                      self.pause = False
-                      # close pause menu and continue game
-                      
-                  if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                      pygame.quit()
-                      sys.exit()
-
-          pygame.display.update()
-  
-  def _get_font(self, size): # Returns Press-Start-2P in the desired size
-        return pygame.font.Font(os.path.join(ASSET_PATH, "font.ttf"), size)
+    def update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > self.frame_rate:
+            self.last_update = now
+            self.frame += 1
+            if self.frame == len(explosion_anim[self.size]):
+                return
+            else:
+                center = self.rect.center
+                self.image = explosion_anim[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
 
 
 # Debugging
 def main():
-  Display()
+  display = Display()
+  WIN.draw_window()
 
 if __name__ == "__main__":
   main()
