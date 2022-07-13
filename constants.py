@@ -13,18 +13,10 @@ MUSIC = pygame.mixer.music
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
 
-<<<<<<< HEAD
-LETTER_SIZE = 5
-ASTEROID_VEL = 5
-BORDER_DISTANCE = 10
-WIDTH = 900 * 1.25
-HEIGHT = 500 * 1.25
-=======
 LETTER_SIZE = 4
 BORDER_DISTANCE = 0
 WIDTH = 900
 HEIGHT = 700
->>>>>>> morgan
 
 # This is a file that contains default values that can be called repeatedly.
 # This file will also allow for easy testing of speeds, etc.

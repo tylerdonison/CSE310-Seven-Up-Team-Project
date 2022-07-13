@@ -70,16 +70,16 @@ class Menu(Display):
         HARD = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5 * 4, HEIGHT/6 * 2.5), 
                             text_input="HARD", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
         
-        OPTIONS = (OPTIONS_BACK, EASY, MEDIUM, HARD)
+        # OPTIONS = (OPTIONS_BACK, EASY, MEDIUM, HARD)
 
-        EASY = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5, HEIGHT/6 * 2.5), 
-                            text_input="EASY", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
+        # EASY = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5, HEIGHT/6 * 2.5), 
+        #                     text_input="EASY", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
 
-        MEDIUM = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5 * 2.5, HEIGHT/6 * 2.5), 
-                            text_input="MEDIUM", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
+        # MEDIUM = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5 * 2.5, HEIGHT/6 * 2.5), 
+        #                     text_input="MEDIUM", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
 
-        HARD = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5 * 4, HEIGHT/6 * 2.5), 
-                            text_input="HARD", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
+        # HARD = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/5 * 4, HEIGHT/6 * 2.5), 
+        #                     text_input="HARD", font=self._get_font(30), base_color="#d7fcd4", hovering_color="White", options_size=True)
         
         OPTIONS = (OPTIONS_BACK, EASY, MEDIUM, HARD)
 
@@ -106,7 +106,7 @@ class Menu(Display):
                             self.choices.append(option.text_input.lower())
                             MUSIC.load(Button.select_button_sound)
                             MUSIC.play()
-                            return 
+                            return
 
 
 
@@ -203,3 +203,41 @@ class Menu(Display):
 
             pygame.display.update()
 
+
+# PAUSE MENU
+    def pause_menu(self):
+        BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "MenuBackground.png")), (WIDTH,HEIGHT))
+        WIN.blit(BG, (0, 0))
+
+        MENU_TEXT = self._get_font(50).render("PAUSED", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
+
+        CONTINUE_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 2.5), 
+                            text_input="CONTINUE", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 5), 
+                            text_input="QUIT", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        BUTTONS = (CONTINUE_BUTTON, QUIT_BUTTON) 
+
+        while True:
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+            WIN.blit(MENU_TEXT, MENU_RECT)
+
+            for button in BUTTONS:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(WIN)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.pause = False
+                        return
+                        # close pause menu and continue game
+                        
+                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        pygame.quit()
+                        sys.exit()
+
+            pygame.display.update()
