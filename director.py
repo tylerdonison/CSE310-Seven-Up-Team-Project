@@ -58,12 +58,18 @@ class Director():
 
 
             # Check for bullet colliding with asteroid
-            for obj in self.targets:
-                if station.check_asteroid_hit(obj):
-                    # exp = Explosion(obj)
+            for asteroid in self.targets:
+                if station.check_asteroid_hit(asteroid):
+                    # exp = Explosion(asteroid)
                     # exp.update()
-                    self.targets.remove(obj)
-                    self.asteroid_list.remove(obj)
+                    self.targets.remove(asteroid)
+                    # To trigger explotion animation
+                    asteroid.destroyed = True
+                    # try:
+                    #     self.asteroid_list.remove(asteroid)
+                    # except ValueError:
+                    #     # This fires if a bullet tries to hit an asteroid that already collided with the space station.
+                    #     pass
 
             # Check for asteroid colliding with station
             for asteroid in self.asteroid_list[:]:
@@ -82,7 +88,7 @@ class Director():
             # Adding enemies to screen
             if len(self.asteroid_list) == 0:
             # while len(self.asteroid_list) < 7:
-                for i in range(10):
+                for _ in range(10):
                     if self.mode == "typing":
                         enemy_word = word.get_word(self.difficulty)
                         rock = Asteroid(enemy_word, random.randint(-40, WIDTH - 200), random.randint(-2500, -150), random.randint(0, 2), enemy_word)
@@ -107,8 +113,11 @@ class Director():
             user_input.display_typed_text()
 
             for asteroid in self.asteroid_list:
-                asteroid.draw_asteroid()
-                asteroid.handle_movement()
+                if asteroid.disappear:
+                    self.asteroid_list.remove(asteroid)
+                else:
+                    asteroid.draw_asteroid()
+                    asteroid.handle_movement()
                 
             # Draw and move bullets 
             station.draw_bullet()
