@@ -60,26 +60,27 @@ class Director():
             # Check for bullet colliding with asteroid
             for asteroid in self.targets:
                 if station.check_asteroid_hit(asteroid):
+                    MUSIC.load("Assets/Sounds/Explosion_02.wav")
+                    MUSIC.play()
                     # exp = Explosion(asteroid)
                     # exp.update()
                     self.targets.remove(asteroid)
                     # To trigger explotion animation
                     asteroid.destroyed = True
-                    # try:
-                    #     self.asteroid_list.remove(asteroid)
-                    # except ValueError:
-                    #     # This fires if a bullet tries to hit an asteroid that already collided with the space station.
-                    #     pass
 
             # Check for asteroid colliding with station
             for asteroid in self.asteroid_list[:]:
                 if station.space_station_collide(asteroid):
+                    MUSIC.load("Assets/Sounds/Explosion_03.wav")
+                    MUSIC.play()
                     self.asteroid_list.remove(asteroid)
                     self.health.decrement_health()
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
                 if self.guess == asteroid.answer and 300 - asteroid.y < 300 and asteroid not in self.targets:
+                    MUSIC.load("Assets/Sounds/Shoot_01.wav")
+                    MUSIC.play()
                     self.targets.append(asteroid)
                     station.create_bullet(asteroid)
                     self.guess = None
@@ -125,6 +126,8 @@ class Director():
 
             game_over = self.health.get_health()
             if game_over <= 0:
+                MUSIC.load("Assets/Sounds/Jingle_Lose_00.wav")
+                MUSIC.play()
                 display.game_over()
                 loop = True
                 MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 4), 

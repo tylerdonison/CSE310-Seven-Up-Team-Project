@@ -66,7 +66,7 @@ class Space_Station():
 
   def handle_bullets(self):
     for bullet in self.bullets:
-      bullet.y -= 10
+      bullet.y -= bullet.vel
 
 
 
