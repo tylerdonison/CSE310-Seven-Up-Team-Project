@@ -44,13 +44,13 @@ class Director():
             self.timer += 1
             display.draw_window()
             pygame.display.update() 
+            # Event listeners
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.run = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                # pause/unpause
-                ### Call pause function in menu ###
+                        # pause/unpause
                         self.pause = True
                         menu.pause_menu()
                         
