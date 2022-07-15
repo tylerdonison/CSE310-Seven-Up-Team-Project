@@ -1,5 +1,4 @@
 import random
-from mathematics import Mathematics
 from constants import *
 
 class Asteroid():
