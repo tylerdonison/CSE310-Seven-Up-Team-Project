@@ -10,15 +10,11 @@ from button import Button
 from display import Display
 
 class Menu(Display):
-    BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
 
     def __init__(self):
-        # Set the default for the difficulty as easy
-        # self.difficulty = "EASY"
         self.choices = []
-        # Draw the main menu
-        super().__init__()
-        
+        self.BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
+
 
     def _get_font(self, size): # Returns Press-Start-2P in the desired size
         return pygame.font.Font(os.path.join(ASSET_PATH, "font.ttf"), size)
@@ -27,8 +23,6 @@ class Menu(Display):
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-
-      #      WIN.fill("black")
 
             PLAY_TEXT = self._get_font(45).render("This is the PLAY WIN.", True, "White")
             PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
@@ -51,7 +45,7 @@ class Menu(Display):
             pygame.display.update()
         
     def options(self):
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         OPTIONS_TEXT = self._get_font(45).render("DIFFICULTY", True, "#b68f40")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
@@ -103,7 +97,7 @@ class Menu(Display):
 
     def math_or_typing(self):
         # Player chooses which mode to play
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         OPTIONS_TEXT = self._get_font(45).render("OPTIONS", True, "#b68f40")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
@@ -151,15 +145,13 @@ class Menu(Display):
 
     # This is the main menu
     def draw_window(self):
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         MENU_TEXT = self._get_font(50).render("GALACTIC TYPER", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
 
         PLAY_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 3), 
                             text_input="PLAY", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
-        # OPTIONS_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Options Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 3.75), 
-        #                     text_input="OPTIONS", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 4), 
                             text_input="QUIT", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
         BUTTONS = (PLAY_BUTTON, QUIT_BUTTON) 
@@ -178,17 +170,47 @@ class Menu(Display):
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        # self.play()
                         pygame.display.update()
                         return self.math_or_typing()
                         
-                    # if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    #     # Clear screen
-                    #     pygame.display.update()
-                    #     self.options()
                     if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                         pygame.quit()
                         sys.exit()
 
             pygame.display.update()
+
+    def pause_menu(self):
+        print("here")
+        BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
+        WIN.blit(BG, (0, 0))
+
+        MENU_TEXT = self._get_font(50).render("PAUSED", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/6))
+
+        CONTINUE_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Play Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 2.5), 
+                            text_input="CONTINUE", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 4), 
+                            text_input="QUIT", font=self._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        BUTTONS = (CONTINUE_BUTTON, QUIT_BUTTON) 
+
+        while True:
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+            WIN.blit(MENU_TEXT, MENU_RECT)
+            pygame.display.update() 
+            for button in BUTTONS:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(WIN)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        return False
+                        # close pause menu and continue game
+
+                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        pygame.quit()
+                        sys.exit()
 

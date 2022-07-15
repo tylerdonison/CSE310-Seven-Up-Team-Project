@@ -56,7 +56,7 @@ class Space_Station():
     if obj.x >= offset_left and obj.x <= offset_right and obj.y + offset_height > HEIGHT / 2 - 70:
       return True
 
-  def check_asteroid_hit(self, obj):
+  def check_bullet_hit(self, obj):
     """Checks to see if any bullet has hit an asteroid, if so then the bullet is removed"""
     for bullet in self.bullets:
       if bullet.y <= 0:
@@ -68,7 +68,7 @@ class Space_Station():
   def handle_bullets(self):
     """Handles the bullet movement and velocity"""
     for bullet in self.bullets:
-      bullet.y -= 10
+      bullet.y -= bullet.vel
 
 
 

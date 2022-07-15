@@ -7,11 +7,10 @@ from user import User
 from space_station import Space_Station
 from asteroid import Asteroid
 from words import Word
-from display import Explosion
 from menu import Menu
-# from score import Score 
 from health import Health
 from button import Button
+from score import Score
 import sys
 pygame.init()
 display = Display()
@@ -19,9 +18,7 @@ user_input = User()
 station = Space_Station()
 menu = Menu()
 word = Word()
-# score = Score(50)
-health = Health()
-# math = Mathematics()
+
 
 class Director():
 
@@ -34,6 +31,7 @@ class Director():
         self.targets = []
         self.timer = 0
         self.health = Health()
+        self.score = Score()
         self.mode = None
 
 
@@ -60,30 +58,35 @@ class Director():
 
 
             # Check for bullet colliding with asteroid
-            for obj in self.targets:
-                if station.check_asteroid_hit(obj):
-                    exp = Explosion(obj)
-                    exp.update()
-                    self.targets.remove(obj)
-                    self.asteroid_list.remove(obj)
+            for asteroid in self.targets:
+                if station.check_bullet_hit(asteroid):
+                    MUSIC.load("Assets/Sounds/Explosion_02.wav")
+                    MUSIC.play()
+                    self.targets.remove(asteroid)
+                    # To trigger explotion animation
+                    asteroid.destroyed = True
 
             # Check for asteroid colliding with station
             for asteroid in self.asteroid_list[:]:
                 if station.space_station_collide(asteroid):
+                    MUSIC.load("Assets/Sounds/Explosion_03.wav")
+                    MUSIC.play()
                     self.asteroid_list.remove(asteroid)
                     self.health.decrement_health()
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
                 if self.guess == asteroid.answer and 300 - asteroid.y < 300 and asteroid not in self.targets:
+                    MUSIC.load("Assets/Sounds/Shoot_01.wav")
+                    MUSIC.play()
                     self.targets.append(asteroid)
                     station.create_bullet(asteroid)
                     self.guess = None
-                    # score.update_score
+                    self.score.update_score(len(asteroid.enemy_word) * 10)
 
             # Adding enemies to screen
             if len(self.asteroid_list) == 0:
-                for i in range(7):
+                for _ in range(10):
                     if self.mode == "typing":
                         enemy_word = word.get_word(self.difficulty)
                         rock = Asteroid(enemy_word, random.randint(-40, WIDTH - 200), random.randint(-2500, -150), random.randint(0, 2), enemy_word)
@@ -91,7 +94,6 @@ class Director():
                     else:
                         math = Mathematics(self.difficulty)
                         math.math_setup()
-                        print(math.get_problem())
                         enemy_word = math.get_problem()
                         answer = math.get_answer()
                         rock = Asteroid(enemy_word, random.randint(-70, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), answer)
@@ -102,14 +104,19 @@ class Director():
             display.draw_window()
             display.draw_pause_option()
             self.health.draw_health()
+            self.score.draw_score()
 
 
             # Display typed text
             user_input.display_typed_text()
 
+
             for asteroid in self.asteroid_list:
-                asteroid.draw_asteroid()
-                asteroid.handle_movement()
+                if asteroid.disappear:
+                    self.asteroid_list.remove(asteroid)
+                else:
+                    asteroid.draw_asteroid()
+                    asteroid.handle_movement()
                 
             # Draw and move bullets 
             station.draw_bullet()
@@ -117,7 +124,11 @@ class Director():
 
             game_over = self.health.get_health()
             if game_over <= 0:
-                display.game_over()
+                """When the game ends player will be taked to a game over screen where they are shown
+                    their score and have the option to quit or go back to the main menu"""
+                # MUSIC.load("Assets/Sounds/Jingle_Lose_00.wav")
+                # MUSIC.play()
+                display.game_over(self.score.get_score())
                 loop = True
                 MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 4), 
                             text_input="MAIN MENU", font=menu._get_font(50), base_color="#b68f40", hovering_color="Grey")
@@ -128,10 +139,7 @@ class Director():
 
                 while loop:
                     OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
                     pygame.display.update()
-                # See if any of the options are being hovered over.
-                # If so, change and update color
                     for option in OPTIONS:
                         option.changeColor(OPTIONS_MOUSE_POS)
                         option.update(WIN)
