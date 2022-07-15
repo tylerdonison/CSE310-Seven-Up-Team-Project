@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-class database:
+class Database:
 
     def __init__(self):
         self.data = dict()
