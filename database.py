@@ -33,9 +33,3 @@ class database:
     
     def clear_data(self):
         os.remove(self.file_name)
-        
-db = database()
-from random import randint
-random_score = randint(0,1000)
-db.save_data("TSD", random_score)
-db.load_data()
