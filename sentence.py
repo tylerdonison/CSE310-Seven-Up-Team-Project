@@ -1,6 +1,7 @@
 from problem import Problem
 import random
 
+
 class Sentence(Problem):
 
     def __init__(self, nouns, verbs, prepositions, articles):

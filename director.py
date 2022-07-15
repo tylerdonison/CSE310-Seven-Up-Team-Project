@@ -12,13 +12,14 @@ from health import Health
 from button import Button
 from score import Score
 import sys
+from database import Database
 pygame.init()
 display = Display()
 user_input = User()
 station = Space_Station()
 menu = Menu()
 word = Word()
-
+data = Database()
 
 class Director():
 
@@ -33,7 +34,7 @@ class Director():
         self.health = Health()
         self.score = Score()
         self.mode = None
-
+        self.player_score = self.score.get_score()
 
     def start_game(self):
         """The main game loop"""
@@ -108,7 +109,7 @@ class Director():
 
 
             # Display typed text
-            user_input.display_typed_text()
+            user_input.display_typed_text("game")
 
 
             for asteroid in self.asteroid_list:
@@ -124,41 +125,129 @@ class Director():
 
             game_over = self.health.get_health()
             if game_over <= 0:
-                """When the game ends player will be taked to a game over screen where they are shown
-                    their score and have the option to quit or go back to the main menu"""
-                # MUSIC.load("Assets/Sounds/Jingle_Lose_00.wav")
-                # MUSIC.play()
-                display.game_over(self.score.get_score())
-                loop = True
-                MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 4), 
-                            text_input="MAIN MENU", font=menu._get_font(50), base_color="#b68f40", hovering_color="Grey")
-                
-                QUIT_BUTTON = Button(image=pygame.image.load(os.path.join(ASSET_PATH, "Quit Rect.png")), pos=(WIDTH/2, HEIGHT/6 * 5), 
-                            text_input="QUIT", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
-                OPTIONS = (MAIN_MENU, QUIT_BUTTON)
-
-                while loop:
-                    OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-                    pygame.display.update()
-                    for option in OPTIONS:
-                        option.changeColor(OPTIONS_MOUSE_POS)
-                        option.update(WIN)
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
-                            sys.exit()
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            for option in OPTIONS:
-                                if MAIN_MENU.checkForInput(OPTIONS_MOUSE_POS):
-                                # Go back to main function
-                                    loop = False
-                                elif QUIT_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                                    pygame.quit()
-                                    sys.exit()
+                self.game_over_screen()
                 self.run = False
    
 
             pygame.display.update()
+
+        menu.draw_window()
+
+    def game_over_screen(self):
+        """When the game ends player will be taked to a game over screen where they are shown
+        their score and have the option to quit or go back to the main menu"""
+        # MUSIC.load("Assets/Sounds/Jingle_Lose_00.wav")
+        # MUSIC.play()
+        display.game_over(self.player_score)
+        loop = True
+        clock = pygame.time.Clock() 
+
+        ### Input box ###
+        user_text = ''
+        # create rectangle
+        input_rect = pygame.Rect(WIDTH/2 - 100, HEIGHT/2 - 10, 200, 45)
+        color_active = (102,102,102)
+        color_passive = (198, 198, 198)
+        color = color_passive
+        active = False
+        name = False
+
+        SCORES = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 4), 
+                    text_input="SEE HIGH SCORES", font=menu._get_font(30), base_color="#b68f40", hovering_color="Grey")
+        
+        MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 5), 
+                    text_input="MAIN MENU", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS = (SCORES, MAIN_MENU)
+
+        while loop:
+            display.game_over(self.player_score)
+            OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+            # pygame.display.update()
+            # user_input.display_typed_text("end")
+            for option in OPTIONS:
+                option.changeColor(OPTIONS_MOUSE_POS)
+                option.update(WIN)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if MAIN_MENU.checkForInput(OPTIONS_MOUSE_POS):
+                    # Go back to main function
+                        loop = False
+                    elif SCORES.checkForInput(OPTIONS_MOUSE_POS):
+                        self.after_game()
+                        return
+                    elif input_rect.collidepoint(event.pos):
+                        active = True
+                    else:
+                        active = False
+
+                if event.type == pygame.KEYDOWN:
+                # Check for backspace
+                    if event.key == pygame.K_BACKSPACE:  
+                        # get text input from 0 to -1 i.e. end.
+                        user_text = user_text[:-1]   
+
+                    elif event.key == pygame.K_RETURN:
+                        name = user_text
+                        user_text = ''  
+                        name = False    
+                    else:
+                        user_text += event.unicode
+
+            
+            if active:
+                color = color_active
+            else:
+                color = color_passive
+          
+            if name:
+                data.save_data(name, self.player_score)
+
+            # draw rectangle and argument passed which should
+            # be on screen
+            pygame.draw.rect(WIN, color,(WIDTH/2 - 100, HEIGHT/2 - 10, 200, 45))
+        
+            text_surface =FONT.render(user_text, True, (255, 255, 255))
+            
+            # render at position stated in arguments
+            WIN.blit(text_surface, (input_rect.x+5, input_rect.y))
+            
+            # set width of textfield so that text cannot get
+            # outside of user's text input
+            input_rect.w = max(100, text_surface.get_width()+10)
+            
+            pygame.display.update()
+            
+        
+
+    def after_game(self):
+        BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
+        WIN.blit(BG, (0, 0))
+
+        MENU_TEXT = pygame.font.SysFont('Arial', 45).render("HIGH SCORES", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/8))
+
+        MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 5), 
+                    text_input="MAIN MENU", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
+        BUTTONS = [MAIN_MENU]
+
+        while True:
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+            WIN.blit(MENU_TEXT, MENU_RECT)
+            pygame.display.update() 
+            for button in BUTTONS:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(WIN)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if MAIN_MENU.checkForInput(MENU_MOUSE_POS):
+                        return 
 
 
     def setup_game(self):
@@ -170,3 +259,12 @@ class Director():
         self.start_game()
 
 
+def main():
+  """Directs user to the menu, game loop, etc.
+  """
+  director = Director()
+  director.setup_game()
+
+
+if __name__ == "__main__":
+  main()

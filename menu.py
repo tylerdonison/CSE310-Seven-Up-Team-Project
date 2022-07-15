@@ -180,7 +180,6 @@ class Menu(Display):
             pygame.display.update()
 
     def pause_menu(self):
-        print("here")
         BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
         WIN.blit(BG, (0, 0))
 
