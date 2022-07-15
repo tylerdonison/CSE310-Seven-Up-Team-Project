@@ -6,6 +6,7 @@ pygame.font.init()
 pygame.mixer.init()
 
 MUSIC = pygame.mixer.music
+MUSIC.set_volume(0.05)
 
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
@@ -51,7 +52,7 @@ ASSET_PATH = DEFAULT_PATH.join("Assets")
 SPACE = pygame.transform.scale(pygame.image.load(
     os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
     ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
-    (WIDTH, HEIGHT))
+    (WIDTH+100, HEIGHT+100))
 
 SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
 

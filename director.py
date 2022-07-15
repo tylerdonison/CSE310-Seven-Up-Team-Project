@@ -69,10 +69,11 @@ class Director():
             # Check for asteroid colliding with station
             for asteroid in self.asteroid_list[:]:
                 if station.space_station_collide(asteroid):
-                    MUSIC.load("Assets/Sounds/Explosion_03.wav")
-                    MUSIC.play()
-                    self.asteroid_list.remove(asteroid)
-                    self.health.decrement_health()
+                    if not asteroid.destroyed:
+                        MUSIC.load("Assets/Sounds/Explosion_03.wav")
+                        MUSIC.play()
+                        self.health.decrement_health()
+                    asteroid.destroyed = True
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
@@ -103,12 +104,12 @@ class Director():
 
             display.draw_window()
             display.draw_pause_option()
+            station.animation(self.timer)
             self.health.draw_health()
             self.score.draw_score()
-
-
+            
             # Display typed text
-            user_input.display_typed_text()
+            user_input.display_typed_text(self.timer)
 
 
             for asteroid in self.asteroid_list:
@@ -118,6 +119,7 @@ class Director():
                     asteroid.draw_asteroid()
                     asteroid.handle_movement()
                 
+
             # Draw and move bullets 
             station.draw_bullet()
             station.handle_bullets()

@@ -17,10 +17,10 @@ class Display():
     """Draws the background and space sation on game window"""
 
     #draw background
-    WIN.blit(SPACE, (0,0))
+    WIN.blit(SPACE, (-10,0))
 
     # draw space station
-    WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
+   # WIN.blit(SPACESTATION, (WIDTH/2-(SPACESTATION_SIZE[0]/2), HEIGHT-(SPACESTATION_SIZE[0]/2)+100))
       
   def game_over(self, player_score):
     """Handles the screen when the game ends. 
