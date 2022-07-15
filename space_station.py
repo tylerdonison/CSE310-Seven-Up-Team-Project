@@ -18,7 +18,7 @@ class Space_Station():
 
 
   def create_bullet(self, obj):
-    # Creates a bullet object
+    """Creates a bullet object"""
     if len(obj.enemy_word) > 4:
       bullet = Bullet(obj.center[0] + 5, HEIGHT-10)
       self.bullets.append(bullet)
@@ -29,13 +29,13 @@ class Space_Station():
       self.target[bullet] = obj
 
   def draw_bullet(self):
-    # Handles drawing more than one bullet on the screen at once
+    """Handles drawing more than one bullet on the screen at once"""
     for bullet in self.bullets:
       WIN.blit(bullet.img, (bullet.x, bullet.y))
             
 
   def space_station_collide(self, obj):
-  # Checks if pixels overlap so objects look like they collide
+    """Checks if pixels overlap so objects look like they collide"""
     split = self.x / 6
     offset_left = 0 + split + split
     offset_right = WIDTH - split - split
@@ -57,6 +57,7 @@ class Space_Station():
       return True
 
   def check_asteroid_hit(self, obj):
+    """Checks to see if any bullet has hit an asteroid, if so then the bullet is removed"""
     for bullet in self.bullets:
       if bullet.y <= 0:
         self.bullets.remove(bullet)
@@ -65,6 +66,7 @@ class Space_Station():
         return True
 
   def handle_bullets(self):
+    """Handles the bullet movement and velocity"""
     for bullet in self.bullets:
       bullet.y -= 10
 
@@ -73,10 +75,6 @@ class Space_Station():
 
 
 
-      
-###########################################################################
-# Add bullet movement to display, where game loops or where enmies are drawn
-# space_station.move_bullets(asteroid object)   
 
 
   

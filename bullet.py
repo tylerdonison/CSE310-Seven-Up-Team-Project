@@ -15,25 +15,14 @@ class Bullet():
       
 
     def draw(self):
-      # draws the bullet
+      """Draws the bullet"""
       WIN.blit(self.img, (self.x, self.y))
 
     def move(self, vel):
-      # moves bullet towards asteroid
+      """Moves bullet towards asteroid"""
       self.y += vel
 
     def off_screen(self, height):
-      # checks if the bullet is off screen
-        return not(self.y <= height and self.y >= 0)
-
-    def collision(self, obj):
-        return self.collide(obj)
-
-    def collide(self, obj):
-      pass
-        # # Checks if pixels overlap so objects look like they collide
-        # offset_x = self.x - obj.x
-        # offset_y = self.y - obj.y
-        # return obj.mask.overlap(self.mask, (offset_x, offset_y)) != None
-  
+      """Checks if the bullet is off screen"""
+      return not(self.y <= height and self.y >= 0)
 

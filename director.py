@@ -18,11 +18,11 @@ display = Display()
 user_input = User()
 station = Space_Station()
 menu = Menu()
-# rock = Asteroid()
 word = Word()
 # score = Score(50)
 health = Health()
 # math = Mathematics()
+
 class Director():
 
     def __init__(self):
@@ -38,6 +38,7 @@ class Director():
 
 
     def start_game(self):
+        """The main game loop"""
         display.draw_window
         clock = pygame.time.Clock()  
         clock.tick(FPS)
@@ -48,20 +49,21 @@ class Director():
                 if event.type == pygame.QUIT:
                     self.run = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                # pause/unpause
-                ### Call pause function in menu ###
-                        self.pause = True
-                    # Checking for a guess
-                    else:
-                        self.guess = user_input.get_text(event)
+                    # Checking for a guess                   
+                    self.guess = user_input.get_text(event)
+                    # Checking for a pause
+                    self.pause = user_input.check_pause(event)
+
+            # If player pauses game, pause menu is shown
+            if self.pause == True:
+                self.pause = menu.pause_menu()
 
 
             # Check for bullet colliding with asteroid
             for obj in self.targets:
                 if station.check_asteroid_hit(obj):
-                    # exp = Explosion(obj)
-                    # exp.update()
+                    exp = Explosion(obj)
+                    exp.update()
                     self.targets.remove(obj)
                     self.asteroid_list.remove(obj)
 
@@ -81,28 +83,27 @@ class Director():
 
             # Adding enemies to screen
             if len(self.asteroid_list) == 0:
-            # while len(self.asteroid_list) < 7:
-                for i in range(10):
+                for i in range(7):
                     if self.mode == "typing":
                         enemy_word = word.get_word(self.difficulty)
                         rock = Asteroid(enemy_word, random.randint(-40, WIDTH - 200), random.randint(-2500, -150), random.randint(0, 2), enemy_word)
                         rock.size_by_word()
                     else:
-                        math = Mathematics()
-                        math.produce_math_problem(self.difficulty)
-                        enemy_word = math.get_printed_problem()
+                        math = Mathematics(self.difficulty)
+                        math.math_setup()
+                        print(math.get_problem())
+                        enemy_word = math.get_problem()
                         answer = math.get_answer()
                         rock = Asteroid(enemy_word, random.randint(-70, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), answer)
 
                     # rock.size_by_word()
-                    self.asteroid_list.append(rock)
-
-
-  
-                      
+                    self.asteroid_list.append(rock)                      
 
             display.draw_window()
+            display.draw_pause_option()
             self.health.draw_health()
+
+
             # Display typed text
             user_input.display_typed_text()
 
@@ -159,10 +160,7 @@ class Director():
         self.mode = player_choice[0]
         self.health.determine_start_health(self.difficulty)
         self.start_game()
-        # math = Mathematics()
-        # # math.produce_math_problem
-        # math.get_printed_problem
-        # print(type(math.text))
+
 
 def main():
   """Directs user to the menu, game loop, etc.
