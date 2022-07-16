@@ -6,6 +6,7 @@ pygame.font.init()
 pygame.mixer.init()
 
 MUSIC = pygame.mixer.music
+MUSIC.set_volume(0.05)
 
 DEFAULT_PATH = os.path
 ASSET_PATH = os.path.join("Assets")
