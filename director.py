@@ -222,7 +222,7 @@ class Director():
             lab_surface = pygame.Surface(label.get_size())
             lab_surface.fill((102,102,102))
             lab_surface.blit(label, (0, 0))
-            WIN.blit(lab_surface, (WIDTH/6 + 15, input_rect.y+7))
+            WIN.blit(lab_surface, (WIDTH/6 - 30, input_rect.y+7))
 
             # set width of textfield so that text cannot get
             # outside of user's text input
