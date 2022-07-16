@@ -38,7 +38,7 @@ class Director():
 
     def start_game(self):
         """The main game loop"""
-        display.draw_window
+        display.draw_window()
         clock = pygame.time.Clock()  
         clock.tick(FPS)
         while self.run:
