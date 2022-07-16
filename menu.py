@@ -1,6 +1,5 @@
 # Main Menu
 # Thanks to https://www.youtube.com/watch?v=GMBqjxcKogA
-# https://github.com/baraltech/Menu-System-PyGame
 
 import sys
 import os
