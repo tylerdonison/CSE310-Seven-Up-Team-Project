@@ -14,8 +14,8 @@ class Score():
         """Draws score on the screen"""
         text = STATS_FONT.render(f"Player score: {self.score}", 1, WHITE)
         WIN.blit(text, (30, 0))
-        return self.score
 
     def get_score(self):
         """Returns player score"""
+        print(self.score)
         return self.score

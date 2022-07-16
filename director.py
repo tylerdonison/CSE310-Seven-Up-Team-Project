@@ -34,8 +34,7 @@ class Director():
         self.timer = 0
         self.health = Health()
         self.mode = None
-        self.player_score = score.draw_score()
-        print(self.player_score)
+        self.player_score = score.get_score()
 
     def start_game(self):
         """The main game loop"""
@@ -102,7 +101,7 @@ class Director():
 
                     # rock.size_by_word()
                     self.asteroid_list.append(rock)                      
-
+            
             display.draw_window()
             display.draw_pause_option()
             self.health.draw_health()
@@ -137,8 +136,8 @@ class Director():
         return True
 
     def game_over_screen(self):
-        """When the game ends player will be taked to a game over screen where they are shown
-        their score and have the option to quit or go back to the main menu"""
+        """When the game ends player will be taked to a game over screen where they can save their score
+         and have the option to quit or go back to the main menu"""
         # MUSIC.load("Assets/Sounds/Jingle_Lose_00.wav")
         # MUSIC.play()
         display.game_over(self.player_score)
@@ -160,7 +159,7 @@ class Director():
                     text_input="HIGH SCORES", font=menu._get_font(30), base_color="#b68f40", hovering_color="Grey")
         
         MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 5), 
-                    text_input="MAIN MENU", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
+                    text_input="MAIN MENU", font=menu._get_font(40), base_color="#b68f40", hovering_color="White")
         OPTIONS = (SCORES, MAIN_MENU)
 
         while loop:
@@ -233,6 +232,7 @@ class Director():
         
 
     def after_game(self):
+        """Screen for showing high scores"""
         BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
         WIN.blit(BG, (0, 0))
         data.load_data()
@@ -298,6 +298,7 @@ class Director():
                 WIN.blit(label, (WIDTH/2 - label.get_width() * .5, HEIGHT/3))
 
     def play_again(self):
+        """If user chooses to return to menu after game they will directed to a new instance of the game"""
         new = Director()
         new.setup_game()
 
@@ -311,12 +312,12 @@ class Director():
         self.start_game()
 
 
-def main():
-  """Directs user to the menu, game loop, etc.
-  """
-  director = Director()
-  director.game_over_screen()
+# def main():
+#   """Directs user to the menu, game loop, etc.
+#   """
+#   director = Director()
+#   director.game_over_screen()
 
 
-if __name__ == "__main__":
-  main()
+# if __name__ == "__main__":
+#   main()

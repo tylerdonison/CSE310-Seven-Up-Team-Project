@@ -25,7 +25,7 @@ class Health():
     def determine_start_health(self, difficulty):
         """Decides on the players starting health based on difficulty chosen"""
         if difficulty == "hard":
-            self.health = 1
+            self.health = 5
         elif difficulty == "medium":
             self.health = 7
         else:

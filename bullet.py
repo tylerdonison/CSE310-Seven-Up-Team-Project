@@ -1,7 +1,6 @@
 from constants import *
 
 
-
 class Bullet():
 
     def __init__(self, x, y):
