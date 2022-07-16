@@ -36,6 +36,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 100)
 ROCK_FONT = pygame.font.SysFont("comicsans", 40)
 STATS_FONT = pygame.font.SysFont("Comic Sans Ms", 35)
 FONT = pygame.font.SysFont('Arial', 40)
+SCORE = pygame.font.SysFont('Arial', 60)
 
 FPS = 60
 ASTEROID_VEL = 1

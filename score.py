@@ -8,11 +8,13 @@ class Score():
     def update_score(self, added_score):
         """Adds points to player score"""
         self.score += added_score
+        
 
-    def draw_score(self) -> None:
+    def draw_score(self):
         """Draws score on the screen"""
         text = STATS_FONT.render(f"Player score: {self.score}", 1, WHITE)
         WIN.blit(text, (30, 0))
+        return self.score
 
     def get_score(self):
         """Returns player score"""

@@ -20,6 +20,7 @@ station = Space_Station()
 menu = Menu()
 word = Word()
 data = Database()
+score = Score()
 
 class Director():
 
@@ -32,9 +33,9 @@ class Director():
         self.targets = []
         self.timer = 0
         self.health = Health()
-        self.score = Score()
         self.mode = None
-        self.player_score = self.score.get_score()
+        self.player_score = score.draw_score()
+        print(self.player_score)
 
     def start_game(self):
         """The main game loop"""
@@ -77,13 +78,13 @@ class Director():
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
-                if self.guess == asteroid.answer and 300 - asteroid.y < 300 and asteroid not in self.targets:
+                if self.guess == asteroid.answer and 275 - asteroid.y < 275 and asteroid not in self.targets:
                     MUSIC.load("Assets/Sounds/Shoot_01.wav")
                     MUSIC.play()
                     self.targets.append(asteroid)
                     station.create_bullet(asteroid)
                     self.guess = None
-                    self.score.update_score(len(asteroid.enemy_word) * 10)
+                    score.update_score(len(asteroid.enemy_word) * 10)
 
             # Adding enemies to screen
             if len(self.asteroid_list) == 0:
@@ -105,7 +106,7 @@ class Director():
             display.draw_window()
             display.draw_pause_option()
             self.health.draw_health()
-            self.score.draw_score()
+            score.draw_score()
 
 
             # Display typed text
@@ -122,16 +123,18 @@ class Director():
             # Draw and move bullets 
             station.draw_bullet()
             station.handle_bullets()
-
             game_over = self.health.get_health()
             if game_over <= 0:
-                self.game_over_screen()
-                self.run = False
+                final_score = self.player_score
+                choice = self.game_over_screen()
+                if choice =="main":
+
+                    self.run = False
    
 
             pygame.display.update()
 
-        menu.draw_window()
+        return True
 
     def game_over_screen(self):
         """When the game ends player will be taked to a game over screen where they are shown
@@ -145,15 +148,16 @@ class Director():
         ### Input box ###
         user_text = ''
         # create rectangle
-        input_rect = pygame.Rect(WIDTH/2 - 100, HEIGHT/2 - 10, 200, 45)
+        input_rect = pygame.Rect(WIDTH/2 + 40, HEIGHT/2 - 10, 200, 45)
         color_active = (102,102,102)
         color_passive = (198, 198, 198)
         color = color_passive
         active = False
         name = False
+        saved = False
 
         SCORES = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 4), 
-                    text_input="SEE HIGH SCORES", font=menu._get_font(30), base_color="#b68f40", hovering_color="Grey")
+                    text_input="HIGH SCORES", font=menu._get_font(30), base_color="#b68f40", hovering_color="Grey")
         
         MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 5), 
                     text_input="MAIN MENU", font=menu._get_font(40), base_color="#d7fcd4", hovering_color="White")
@@ -162,8 +166,6 @@ class Director():
         while loop:
             display.game_over(self.player_score)
             OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-            # pygame.display.update()
-            # user_input.display_typed_text("end")
             for option in OPTIONS:
                 option.changeColor(OPTIONS_MOUSE_POS)
                 option.update(WIN)
@@ -174,10 +176,10 @@ class Director():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if MAIN_MENU.checkForInput(OPTIONS_MOUSE_POS):
                     # Go back to main function
-                        loop = False
+                        self.play_again()
                     elif SCORES.checkForInput(OPTIONS_MOUSE_POS):
-                        self.after_game()
-                        return
+                        return self.after_game()
+
                     elif input_rect.collidepoint(event.pos):
                         active = True
                     else:
@@ -190,9 +192,9 @@ class Director():
                         user_text = user_text[:-1]   
 
                     elif event.key == pygame.K_RETURN:
-                        name = user_text
+                        data.save_data(user_text, self.player_score)
                         user_text = ''  
-                        name = False    
+                        saved = True
                     else:
                         user_text += event.unicode
 
@@ -205,28 +207,37 @@ class Director():
             if name:
                 data.save_data(name, self.player_score)
 
+
+            if saved:
+                save = pygame.font.SysFont('Arial', 20).render("Saved!", True, (255, 255, 255))
+                WIN.blit(save, (WIDTH - 200, input_rect.y+5))
             # draw rectangle and argument passed which should
             # be on screen
-            pygame.draw.rect(WIN, color,(WIDTH/2 - 100, HEIGHT/2 - 10, 200, 45))
+            pygame.draw.rect(WIN, color,(WIDTH/2 + 40, HEIGHT/2 - 10, 200, 45))
         
             text_surface =FONT.render(user_text, True, (255, 255, 255))
             
             # render at position stated in arguments
             WIN.blit(text_surface, (input_rect.x+5, input_rect.y))
             
+            # render input name text
+            label = pygame.font.SysFont('Arial', 30).render("To save score, enter name:", True, (255, 255, 255))
+            WIN.blit(label, (WIDTH/6 + 10, input_rect.y))
+
             # set width of textfield so that text cannot get
             # outside of user's text input
             input_rect.w = max(100, text_surface.get_width()+10)
             
             pygame.display.update()
-            
+            clock.tick(FPS)
         
 
     def after_game(self):
         BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
         WIN.blit(BG, (0, 0))
-
-        MENU_TEXT = pygame.font.SysFont('Arial', 45).render("HIGH SCORES", True, "#b68f40")
+        data.load_data()
+ 
+        MENU_TEXT = pygame.font.SysFont('Arial', 55).render("HIGH SCORES", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/8))
 
         MAIN_MENU = Button(image=None, pos=(WIDTH/2, HEIGHT/6 * 5), 
@@ -240,14 +251,55 @@ class Director():
             for button in BUTTONS:
                 button.changeColor(MENU_MOUSE_POS)
                 button.update(WIN)
-
+            top_scores = data.get_data()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if MAIN_MENU.checkForInput(MENU_MOUSE_POS):
-                        return 
+                        self.play_again()
+            
+            if len(top_scores) >= 3:
+                name_label = FONT.render(top_scores[0][0], 1, WHITE)
+                WIN.blit(name_label, (275, 150))
+                score_label = FONT.render(top_scores[0][1], 1, WHITE)
+                WIN.blit(score_label, (600, 150))
+
+                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
+                WIN.blit(name_label1, (275, 200))
+                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
+                WIN.blit(score_label1, (600, 200))
+
+                name_label2 = FONT.render(top_scores[2][0], 1, WHITE)
+                WIN.blit(name_label2, (275, 250))
+                score_label2 = FONT.render(top_scores[2][1], 1, WHITE)
+                WIN.blit(score_label2, (600, 250))
+
+            elif len(top_scores) == 2:
+                name_label = FONT.render(top_scores[0][0], 1, WHITE)
+                WIN.blit(name_label, (275, 150))
+                score_label = FONT.render(top_scores[0][1], 1, WHITE)
+                WIN.blit(score_label, (600, 150))
+
+                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
+                WIN.blit(name_label1, (275, 200))
+                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
+                WIN.blit(score_label1, (600, 200))
+
+            elif len(top_scores) == 1:
+                name_label = FONT.render(top_scores[0][0], 1, WHITE)
+                WIN.blit(name_label, (275, 150))
+                score_label = FONT.render(top_scores[0][1], 1, WHITE)
+                WIN.blit(score_label, (600, 150))
+
+            else:
+                label = pygame.font.SysFont('Arial', 50).render("NO SCORES YET", 1, WHITE)
+                WIN.blit(label, (WIDTH/2 - label.get_width() * .5, HEIGHT/3))
+
+    def play_again(self):
+        new = Director()
+        new.setup_game()
 
 
     def setup_game(self):
@@ -263,7 +315,7 @@ def main():
   """Directs user to the menu, game loop, etc.
   """
   director = Director()
-  director.setup_game()
+  director.game_over_screen()
 
 
 if __name__ == "__main__":
