@@ -146,8 +146,8 @@ class Director():
         user_text = ''
         # create rectangle
         input_rect = pygame.Rect(WIDTH/2 + 40, HEIGHT/2 - 10, 200, 45)
-        color_active = (102,102,102)
-        color_passive = (198, 198, 198)
+        color_active = (90, 90, 90)
+        color_passive = (102,102,102)
         color = color_passive
         active = False
         name = False
@@ -220,9 +220,9 @@ class Director():
             # render input name text
             label = pygame.font.SysFont('Arial', 30).render("To save score, enter name:", 1, (255, 255, 255))
             lab_surface = pygame.Surface(label.get_size())
-            lab_surface.fill((149, 152, 156))
+            lab_surface.fill((102,102,102))
             lab_surface.blit(label, (0, 0))
-            WIN.blit(lab_surface, (WIDTH/6 + 10, input_rect.y))
+            WIN.blit(lab_surface, (WIDTH/6 + 15, input_rect.y+7))
 
             # set width of textfield so that text cannot get
             # outside of user's text input
