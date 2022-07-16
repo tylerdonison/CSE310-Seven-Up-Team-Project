@@ -12,12 +12,12 @@ the Main menu, options menu, and the pause menu.
 """
 
 class Menu(Display):
-    BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
 
     def __init__(self):
         self.choices = []
         super().__init__()
-        
+        self.BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
+
 
     # This function returns the font
     def _get_font(self, size): # Returns Press-Start-2P in the desired size
@@ -26,7 +26,7 @@ class Menu(Display):
 
     # This is the MAIN MENU - the first menu that comes up when the game is started.
     def draw_window(self):
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
         
         # Set up the text and buttons
         MENU_TEXT = self._get_font(50).render("GALACTIC TYPER", True, "#b68f40")
@@ -70,7 +70,7 @@ class Menu(Display):
     # This is the FIRST OPTIONS MENU where the player chooses which mode to play.
     # This comes up when the player chooses 'play' on the Main Menu.
     def math_or_typing(self):
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         # Set up the text and buttons
         OPTIONS_TEXT = self._get_font(45).render("OPTIONS", True, "#b68f40")
@@ -122,7 +122,7 @@ class Menu(Display):
     # This is the SECOND OPTIONS MENU where the player chooses what difficulty level they want.
     # This comes up after the player chooses the typing or math mode.
     def options(self):
-        WIN.blit(Menu.BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         # Set up the text and buttons
         OPTIONS_TEXT = self._get_font(45).render("DIFFICULTY", True, "#b68f40")
@@ -175,8 +175,7 @@ class Menu(Display):
 
     # This is the PAUSE MENU, it comes up when the player presses the space bar.
     def pause_menu(self):
-        BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "MenuBackground.png")), (WIDTH,HEIGHT))
-        WIN.blit(BG, (0, 0))
+        WIN.blit(self.BG, (0, 0))
 
         # Set up the text and buttons
         MENU_TEXT = self._get_font(50).render("PAUSED", True, "#b68f40")

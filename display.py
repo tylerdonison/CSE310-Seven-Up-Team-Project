@@ -25,10 +25,11 @@ class Display():
   def game_over(self, player_score):
     """Handles the screen when the game ends. 
       Displays the score of the game played"""
-    game_over_text = FONT.render(f"GAME OVER", True, (200,200,200))
-    score_text = FONT.render(f"TOTAL SCORE: {player_score}", True, (200,200,200))
+    BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
+    WIN.blit(BG, (0, 0))
+    game_over_text = FONT.render(f"GAME OVER", True, "#b68f40")
+    score_text = FONT.render(f"TOTAL SCORE: {player_score}", True, "#b68f40")
     #Drawing elements
-    WIN.fill((0, 0, 0))
     WIN.blit(game_over_text, (WIDTH/2 - (game_over_text.get_width()/2), HEIGHT/9))
     WIN.blit(score_text, (WIDTH/2 - (score_text.get_width()/2), (HEIGHT/4)))
     
