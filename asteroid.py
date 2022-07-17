@@ -3,7 +3,7 @@ from constants import *
 
 class Asteroid():
 
-    EXPLOTION = [pygame.image.load(f"Assets/Pictures/explosion/expl_01_000{n}.png") if 10 > n else \
+    EXPLOSION = [pygame.image.load(f"Assets/Pictures/explosion/expl_01_000{n}.png") if 10 > n else \
         pygame.image.load(f"Assets/Pictures/explosion/expl_01_00{n}.png") for n in range(24)]
 
     def __init__(self, enemy_word, x, y, num, answer):
@@ -55,9 +55,9 @@ class Asteroid():
             word_text = ROCK_FONT.render(self.enemy_word, 1, WHITE)
             WIN.blit(word_text, self.center)
         else:
-            get_img = Asteroid.EXPLOTION[self.destroyed_image]
+            get_img = Asteroid.EXPLOSION[self.destroyed_image]
             rock_img = pygame.transform.scale(get_img, self.size)
             WIN.blit(rock_img, (self.x, self.y))          
             self.destroyed_image += 1
-            if self.destroyed_image >= len(Asteroid.EXPLOTION):
+            if self.destroyed_image >= len(Asteroid.EXPLOSION):
                 self.disappear = True

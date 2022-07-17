@@ -2,6 +2,7 @@ from constants import *
 import os
 import pygame
 from bullet import Bullet
+from math import sin
 
 class Space_Station():
   """Class to handle the space station object. The cannon will react to the userclass's controls. 
@@ -14,7 +15,7 @@ class Space_Station():
     self.target = {}
     self.mask = self.mask = pygame.mask.from_surface(SPACESTATION)
     self.x = WIDTH/2-(SPACESTATION_SIZE[0]/2) 
-    self.y = HEIGHT-(SPACESTATION_SIZE[0]/2)+100
+    self.y = self._centerY = HEIGHT-(SPACESTATION_SIZE[0]/2)+100
 
 
   def create_bullet(self, obj):
@@ -70,6 +71,11 @@ class Space_Station():
     for bullet in self.bullets:
       bullet.y -= bullet.vel
 
+  def animation(self, timer):
+    self.y = (10 * sin(timer * 0.05)) // 2 + self._centerY
+    WIN.blit(SPACESTATION, (self.x, self.y))
+
+    
 
 
 

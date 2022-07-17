@@ -20,10 +20,8 @@ class Database:
         with open(self.file_name, "r") as f:
             for line in f:
                 currentline = line.split(",")
-                self.data_list.append([currentline[0], currentline[2]])
-
-            f.close()      
-
+                self.data[currentline[1]] = [currentline[0], currentline[2]]
+            print(self.data)
         
     def save_data(self, initials, score):
         """Save a new line of data to the data.txt, if the txt doesn't exist it will create it.

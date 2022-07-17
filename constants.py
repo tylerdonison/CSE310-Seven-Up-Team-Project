@@ -53,7 +53,7 @@ ASSET_PATH = DEFAULT_PATH.join("Assets")
 SPACE = pygame.transform.scale(pygame.image.load(
     os.path.join(#"CSE310-Seven-Up-Team-Project-main", 
     ASSET_PATH, "Pictures", "Backgrounds", "Background.PNG")), 
-    (WIDTH, HEIGHT))
+    (WIDTH+100, HEIGHT+100))
 
 SPACESTATION_SIZE = (WIDTH- (WIDTH/10), WIDTH- (WIDTH/10))
 

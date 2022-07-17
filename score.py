@@ -9,12 +9,10 @@ class Score():
         """Adds points to player score"""
         self.score += added_score
 
-
-    def draw_score(self):
+    def draw_score(self) -> None:
         """Draws score on the screen"""
         text = STATS_FONT.render(f"Player score: {self.score}", 1, WHITE)
         WIN.blit(text, (30, 0))
-
 
     def get_score(self):
         """Returns player score"""

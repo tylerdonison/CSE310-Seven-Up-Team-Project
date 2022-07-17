@@ -34,7 +34,7 @@ class Director():
         self.timer = 0
         self.health = Health()
         self.mode = None
-        self.player_score = 0
+        self.player_score = Score()
 
     def start_game(self):
         """The main game loop"""
@@ -70,14 +70,15 @@ class Director():
             # Check for asteroid colliding with station
             for asteroid in self.asteroid_list[:]:
                 if station.space_station_collide(asteroid):
-                    MUSIC.load("Assets/Sounds/Explosion_03.wav")
-                    MUSIC.play()
-                    self.asteroid_list.remove(asteroid)
-                    self.health.decrement_health()
+                    if not asteroid.destroyed:
+                        MUSIC.load("Assets/Sounds/Explosion_03.wav")
+                        MUSIC.play()
+                        self.health.decrement_health()
+                    asteroid.destroyed = True
 
             # Checking if guess is right
             for asteroid in self.asteroid_list:
-                if self.guess == asteroid.answer and 275 - asteroid.y < 275 and asteroid not in self.targets:
+                if self.guess == asteroid.answer and 300 - asteroid.y < 300 and asteroid not in self.targets:
                     MUSIC.load("Assets/Sounds/Shoot_01.wav")
                     MUSIC.play()
                     self.targets.append(asteroid)
@@ -98,21 +99,21 @@ class Director():
                         math.math_setup()
                         enemy_word = math.get_problem()
                         answer = math.get_answer()
-                        rock = Asteroid(enemy_word, random.randint(-60, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), answer)
+                        rock = Asteroid(enemy_word, random.randint(-70, WIDTH - 200), random.randint(-2000, -150), random.randint(0, 2), answer)
 
+                    # rock.size_by_word()
                     self.asteroid_list.append(rock)                      
-            
-            # Drawing onto the screen
+
             display.draw_window()
             display.draw_pause_option()
+            station.animation(self.timer)
             self.health.draw_health()
             score.draw_score()
-
-
+            
             # Display typed text
-            user_input.display_typed_text("game")
+            user_input.display_typed_text(self.timer)
 
-            # Removes asteroid if hit, otherwise asteroids and movement are drawn on screen 
+
             for asteroid in self.asteroid_list:
                 if asteroid.disappear:
                     self.asteroid_list.remove(asteroid)
@@ -358,4 +359,5 @@ class Director():
         self.mode = player_choice[0]
         self.health.determine_start_health(self.difficulty)
         self.start_game()
+
 

@@ -1,3 +1,6 @@
+# Main Menu
+# Thanks to https://www.youtube.com/watch?v=GMBqjxcKogA
+
 import sys
 import os
 import pygame
