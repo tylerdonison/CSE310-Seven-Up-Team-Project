@@ -237,7 +237,6 @@ class Director():
         """Screen for showing high scores"""
         BG = pygame.transform.scale(pygame.image.load(os.path.join(ASSET_PATH, "Pictures", "Backgrounds", "nebula.jpg")), (WIDTH,HEIGHT))
         WIN.blit(BG, (0, 0))
-        data.load_data()
  
         MENU_TEXT = pygame.font.SysFont('Arial', 55).render("HIGH SCORES", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH/2, HEIGHT/8))
@@ -246,10 +245,28 @@ class Director():
                     text_input="MAIN MENU", font=menu._get_font(35), base_color="#d7fcd4", hovering_color="White")
         BUTTONS = [MAIN_MENU]
 
+        data.load_data()
+        top_scores = data.get_data()
+
+        if len(top_scores) != 0:
+            y_pos = 150
+            for player_stats in top_scores:
+                for n in range(2):
+                    if n == 0:
+                        name_label = FONT.render(player_stats[0], 1, WHITE)
+                        WIN.blit(name_label, (275, y_pos))
+                    else:
+                        score_label = FONT.render(player_stats[1], 1, WHITE)
+                        WIN.blit(score_label, (600, y_pos))
+                y_pos += 50
+        
+        else:
+            label = pygame.font.SysFont('Arial', 50).render("NO SCORES YET", 1, WHITE)
+            WIN.blit(label, (WIDTH/2 - label.get_width() * .5, HEIGHT/3))
+
         while True:
             MENU_MOUSE_POS = pygame.mouse.get_pos()
             WIN.blit(MENU_TEXT, MENU_RECT)
-            pygame.display.update() 
             for button in BUTTONS:
                 button.changeColor(MENU_MOUSE_POS)
                 button.update(WIN)
@@ -262,89 +279,7 @@ class Director():
                     if MAIN_MENU.checkForInput(MENU_MOUSE_POS):
                         self.play_again()
 
-            if len(top_scores) >= 5:
-                name_label = FONT.render(top_scores[0][0], 1, WHITE)
-                WIN.blit(name_label, (275, 150))
-                score_label = FONT.render(top_scores[0][1], 1, WHITE)
-                WIN.blit(score_label, (600, 150))
-
-                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
-                WIN.blit(name_label1, (275, 200))
-                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
-                WIN.blit(score_label1, (600, 200))
-
-                name_label2 = FONT.render(top_scores[2][0], 1, WHITE)
-                WIN.blit(name_label2, (275, 250))
-                score_label2 = FONT.render(top_scores[2][1], 1, WHITE)
-                WIN.blit(score_label2, (600, 250))
-
-                name_label3 = FONT.render(top_scores[3][0], 1, WHITE)
-                WIN.blit(name_label3, (275, 300))
-                score_label3 = FONT.render(top_scores[3][1], 1, WHITE)
-                WIN.blit(score_label3, (600, 300))
-
-                name_label4 = FONT.render(top_scores[3][0], 1, WHITE)
-                WIN.blit(name_label4, (275, 350))
-                score_label4 = FONT.render(top_scores[3][1], 1, WHITE)
-                WIN.blit(score_label4, (600, 350))
-
-            elif len(top_scores) == 4:
-                name_label = FONT.render(top_scores[0][0], 1, WHITE)
-                WIN.blit(name_label, (275, 150))
-                score_label = FONT.render(top_scores[0][1], 1, WHITE)
-                WIN.blit(score_label, (600, 150))
-
-                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
-                WIN.blit(name_label1, (275, 200))
-                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
-                WIN.blit(score_label1, (600, 200))
-
-                name_label2 = FONT.render(top_scores[2][0], 1, WHITE)
-                WIN.blit(name_label2, (275, 250))
-                score_label2 = FONT.render(top_scores[2][1], 1, WHITE)
-                WIN.blit(score_label2, (600, 250))
-
-                name_label3 = FONT.render(top_scores[3][0], 1, WHITE)
-                WIN.blit(name_label3, (275, 300))
-                score_label3 = FONT.render(top_scores[3][1], 1, WHITE)
-                WIN.blit(score_label3, (600, 300))
-
-            elif len(top_scores) == 3:
-                name_label = FONT.render(top_scores[0][0], 1, WHITE)
-                WIN.blit(name_label, (275, 150))
-                score_label = FONT.render(top_scores[0][1], 1, WHITE)
-                WIN.blit(score_label, (600, 150))
-
-                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
-                WIN.blit(name_label1, (275, 200))
-                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
-                WIN.blit(score_label1, (600, 200))
-
-                name_label2 = FONT.render(top_scores[2][0], 1, WHITE)
-                WIN.blit(name_label2, (275, 250))
-                score_label2 = FONT.render(top_scores[2][1], 1, WHITE)
-                WIN.blit(score_label2, (600, 250))
-
-            elif len(top_scores) == 2:
-                name_label = FONT.render(top_scores[0][0], 1, WHITE)
-                WIN.blit(name_label, (275, 150))
-                score_label = FONT.render(top_scores[0][1], 1, WHITE)
-                WIN.blit(score_label, (600, 150))
-
-                name_label1 = FONT.render(top_scores[1][0], 1, WHITE)
-                WIN.blit(name_label1, (275, 200))
-                score_label1 = FONT.render(top_scores[1][1], 1, WHITE)
-                WIN.blit(score_label1, (600, 200))
-
-            elif len(top_scores) == 1:
-                name_label = FONT.render(top_scores[0][0], 1, WHITE)
-                WIN.blit(name_label, (275, 150))
-                score_label = FONT.render(top_scores[0][1], 1, WHITE)
-                WIN.blit(score_label, (600, 150))
-
-            else:
-                label = pygame.font.SysFont('Arial', 50).render("NO SCORES YET", 1, WHITE)
-                WIN.blit(label, (WIDTH/2 - label.get_width() * .5, HEIGHT/3))
+            pygame.display.update()
 
     def play_again(self):
         """If user chooses to return to menu after game they will directed to a new instance of the game"""
@@ -359,5 +294,3 @@ class Director():
         self.mode = player_choice[0]
         self.health.determine_start_health(self.difficulty)
         self.start_game()
-
-

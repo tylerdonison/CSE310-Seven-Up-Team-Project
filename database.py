@@ -1,8 +1,5 @@
-
-from ast import operator
 from datetime import datetime
 import os
-from collections import OrderedDict
 class Database:
 
     def __init__(self):
@@ -20,8 +17,7 @@ class Database:
         with open(self.file_name, "r") as f:
             for line in f:
                 currentline = line.split(",")
-                self.data[currentline[1]] = [currentline[0], currentline[2]]
-            print(self.data)
+                self.data_list.append([currentline[0], currentline[2]])
         
     def save_data(self, initials, score):
         """Save a new line of data to the data.txt, if the txt doesn't exist it will create it.
@@ -40,19 +36,7 @@ class Database:
         os.remove(self.file_name)
 
     def get_data(self):
-        """Sorts score data into descending order"""
+        """Sorts score data into descending order and returns the top 7 scores for what can fit on screen"""
         sorted_list = sorted(self.data_list, key=lambda x: int(x[1]), reverse=True)
        
-        return sorted_list
-
-
-
-
-def main():
-    d = Database()
-    d.load_data()
-    d.get_data()
-
-
-if __name__=="__main__":
-    main()
+        return sorted_list[:7]
