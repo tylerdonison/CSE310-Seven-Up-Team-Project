@@ -1,6 +1,6 @@
 # Overview
 
-This software is a game to test your typing precision! Type the words or solve the math problems correctly to shoot down the meteors before they destory your home base!
+This software is a game to test your typing precision! Meteors will spawn with words to be spelled, or math problems to be solved depending on your choice. Type the words or solve the math problems correctly to shoot down the meteors before they reach your home base! If too many reach, it's all over! Get the highest score and compare with your friends!
 
 How to play:
 
@@ -31,5 +31,5 @@ If the meteors hit your base too many times, you lose!
 
 # Future Work
 
-* Implement Difficulty
+* Implement Story
 * Implement Levels
