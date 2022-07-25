@@ -4,10 +4,10 @@ This software is a game to test your typing precision! Meteors will spawn with w
 
 How to play:
 
-Type the given words or the solution, then hit enter.
-If your answer is right, you destroy the meteor!
-If it is wrong, you'll have to try again.
-If the meteors hit your base too many times, you lose!
+* Type the given words or the solution, then hit enter.
+* If your answer is right, you destroy the meteor!
+* If it is wrong, you'll have to try again.
+* If the meteors hit your base too many times, you lose!
 
 [Software Demo Video](https://youtu.be/mP8Z0NfU8sM)
 
